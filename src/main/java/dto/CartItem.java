@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CartItem.findAll", query = "SELECT c FROM CartItem c"),
     @NamedQuery(name = "CartItem.findByCartItemId", query = "SELECT c FROM CartItem c WHERE c.cartItemId = :cartItemId"),
     @NamedQuery(name = "CartItem.findByQuantity", query = "SELECT c FROM CartItem c WHERE c.quantity = :quantity"),
-    @NamedQuery(name = "CartItem.findByProductId", query = "SELECT c FROM CartItem c WHERE c.productId.productId = :productId")
+    @NamedQuery(name = "CartItem.findByProductId", query = "SELECT c FROM CartItem c WHERE c.productId.productId = :productId"),
+    @NamedQuery(name = "CartItem.deleteAllItemInCart", query = "DELETE FROM CartItem c WHERE c.cartId.cartId = :cartId"),
+    @NamedQuery(name = "CartItem.findByCartId", query = "SELECT c FROM CartItem c WHERE c.cartId = :cartId")
 })
 public class CartItem implements Serializable {
 

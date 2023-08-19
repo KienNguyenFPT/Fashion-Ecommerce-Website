@@ -23,7 +23,6 @@ function addToCart(productId) {
             .then(data => {
                 var statusDiv;
                 var result = data.toString();
-                alert(result);
                 if (result === "success") {
                     statusDiv = document.createElement("div");
                     statusDiv.textContent = "Add cart success!";
@@ -43,7 +42,6 @@ function addToCart(productId) {
                 }
             })
             .catch(error => {
-                console.error('ERROR:', error);
                 return false;
             });
 

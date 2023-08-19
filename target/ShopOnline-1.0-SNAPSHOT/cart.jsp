@@ -1,4 +1,4 @@
-<%-- 
+ <%-- 
     Document   : cart
     Created on : Aug 7, 2023, 9:29:20 AM
     Author     : Raiku
@@ -148,6 +148,7 @@
                                     </div>
                                 </div>
                                 <a href="contact.jsp" class="nav-item nav-link">Contact</a>
+                                <a href="./OrderManagerController" class="nav-item nav-link">Order Manager</a>
                             </div>
                             <div class="navbar-nav ml-auto py-0">
                                 <a href="" class="nav-item nav-link">Login</a>
@@ -192,8 +193,8 @@
                         <c:set var="totalCart" scope="session" value="${0}"/>
                         <tbody id="listItemCart" class="align-middle">
                             <c:forEach items="${sessionScope.shoppingCart.getCartItemList()}" var="item">
-                                <tr data-id="${item.getProductId().getProductId()}">
-                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${item.getProductId().getName()} </td>
+                                <tr id="item" data-id="${item.getProductId().getProductId()}">
+                                    <td class="align-middle"><img src="${item.getProductId().getImg()}" alt="" style="width: 50px;">${item.getProductId().getName()} </td>
                                     <td data-id="product-price${item.getProductId().getProductId()}" class="align-middle">${item.getProductId().getPrice()}</td>
                                     <td class="align-middle">
                                         <div class="input-group quantity mx-auto" style="width: 100px;">
@@ -220,9 +221,9 @@
                     <div  id="addCartStatus" class="col-12 text-center" style="color: red;"> </div>
                 </div>
                 <div class="col-lg-4">
-                    <form class="mb-5" action="">
+                    <form onsubmit="return applyCoupon()" class="mb-5" action="">
                         <div class="input-group">
-                            <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                            <input id="coupon" type="text" minlength="5" pattern="[0-9A-Z]+" required class="form-control p-4" placeholder="Coupon Code">
                             <div class="input-group-append">
                                 <button class="btn btn-primary">Apply Coupon</button>
                             </div>
@@ -241,19 +242,19 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="font-weight-medium">Shipping</h6>
-                                    <h6 class="font-weight-medium">10</h6>
+                                    <h6 id="shipFees" class="font-weight-medium">10</h6>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="font-weight-medium">Discount</h6>
-                                    <h6 style="color: red;" class="font-weight-medium">10</h6>
+                                    <h6 id="discount" style="color: red;" class="font-weight-medium">0</h6>
                                 </div>
                             </div>
-                            <div class="card-footer border-secondary bg-transparent">
+                            <div id="checkOutForm" class="card-footer border-secondary bg-transparent">
                                 <div class="d-flex justify-content-between mt-2">
                                     <h5 class="font-weight-bold">Total</h5>
                                     <h5 id="totalPriceCartAddShip" class="font-weight-bold"><c:out value="${totalCart + 10}" /></h5>
                                 </div>
-                                <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+                                <button onclick="proceedToCheckout()" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
                             </div>
                         </div>
                     </c:if>
@@ -349,6 +350,7 @@
 
         <script src="js/main.js"></script>
         <script src="js/updateCart.js"></script>
+        <script src="js/reloadCart.js"></script>
     </body>
 
 </html>

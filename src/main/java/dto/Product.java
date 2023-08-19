@@ -5,6 +5,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,10 +17,12 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,6 +40,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Product.findByQuantity", query = "SELECT p FROM Product p WHERE p.quantity = :quantity"),
     @NamedQuery(name = "Product.findByQuantitySold", query = "SELECT p FROM Product p WHERE p.quantitySold = :quantitySold")})
 public class Product implements Serializable {
+
+    @OneToMany(mappedBy = "productId")
+    private List<OrderItem> orderItemList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -185,6 +191,15 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "dto.Product[ productId=" + productId + " ]";
+    }
+
+    @XmlTransient
+    public List<OrderItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
     }
     
 }

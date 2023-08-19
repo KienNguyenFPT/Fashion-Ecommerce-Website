@@ -5,7 +5,6 @@
 package Controller;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dao.ShoppingCartDAO;
 import dto.CartItem;
@@ -13,7 +12,6 @@ import dto.ShoppingCart;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -9,13 +9,11 @@ import dto.CartItem;
 import dto.Customer;
 import dto.Product;
 import dto.ShoppingCart;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import org.eclipse.persistence.exceptions.TransactionException;
 
 /**
  *
@@ -24,12 +22,11 @@ import org.eclipse.persistence.exceptions.TransactionException;
 public class ShoppingCartDAO extends MyConnection {
 
     public ShoppingCartDAO() {
-        getEntityManager();
     }
 
     public ShoppingCart addToCart(int pId, ShoppingCart s) {
         Product p = new ProductDAO().getProductById(pId);
-        CartItem c = this.checkItemExist(pId, s);
+        CartItem c = checkItemExist(pId, s);
         try {
             if (c != null) {
                 c.setQuantity(c.getQuantity() + 1);
@@ -41,25 +38,14 @@ public class ShoppingCartDAO extends MyConnection {
                 return s;
             }
         } catch (Exception e) {
-            String errorMessage = "";
-            if (e instanceof NullPointerException) {
-                errorMessage = "The product could not be found.";
-            } else if (e instanceof EntityExistsException) {
-                errorMessage = "The cart item already exists.";
-            } else if (e instanceof TransactionException) {
-                errorMessage = "There was a problem with the database transaction.";
-            } else {
-                errorMessage = "An unknown error occurred.";
-            }
             entityManager.getTransaction().rollback();
-            System.out.println(errorMessage);
+            System.out.println(e.getMessage());
             return null;
         }
     }
 
     public CartItem checkItemExist(int pId, ShoppingCart s) {
-        List<CartItem> cartList = s.getCartItemList();
-        for (CartItem c : cartList) {
+        for (CartItem c : s.getCartItemList()) {
             if (c.getProductId().getProductId() == pId) {
                 return c;
             }
@@ -71,22 +57,15 @@ public class ShoppingCartDAO extends MyConnection {
         try {
             for (CartItem c : s.getCartItemList()) {
                 if (c.getProductId().getProductId() == pId) {
+                    removeItem(c);
                     s.getCartItemList().remove(c);
-                    entityManager.getTransaction().begin();
-                    CartItem managedCartItem = entityManager.merge(c);
-                    entityManager.remove(managedCartItem);
-                    entityManager.getTransaction().commit();
-                    return s;
+                    break;
                 }
             }
         } catch (Exception e) {
-            try {
-                throw new Exception(e.getMessage());
-            } catch (Exception ex) {
-                Logger.getLogger(CartItemDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Logger.getLogger(CartItemDAO.class.getName()).log(Level.SEVERE, null, e);
         }
-        return null;
+        return s;
     }
 
     public ShoppingCart updateQuantity(CartItem c, ShoppingCart s) {
@@ -94,42 +73,45 @@ public class ShoppingCartDAO extends MyConnection {
             getEntityManager();
             entityManager.getTransaction().begin();
             entityManager.merge(c);
+            entityManager.flush();
             entityManager.getTransaction().commit();
-            List<CartItem> cartList = s.getCartItemList();
-            for (CartItem cTemp : cartList) {
+            for (CartItem cTemp : s.getCartItemList()) {
                 if (cTemp.getCartItemId() == c.getCartItemId()) {
                     c.setQuantity(c.getQuantity());
-                    return s;
+                    break;
                 }
             }
-        }catch(Exception e){
-            try {
-                throw new Exception(e.getMessage());
-            } catch (Exception ex) {
-                Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (Exception e) {
+            Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnect();
         }
         return s;
     }
 
     public ShoppingCart createShoppingCart(ShoppingCart shoppingCart) {
         try {
+            getEntityManager();
             entityManager.getTransaction().begin();
             entityManager.persist(shoppingCart);
+            entityManager.flush();
             entityManager.getTransaction().commit();
             return shoppingCart;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
+        } finally {
+            closeConnect();
         }
         return null;
     }
 
     public ShoppingCart loadShoppingCart(Customer cusId) {
-        TypedQuery query = entityManager.createNamedQuery("ShoppingCart.findByCustomerId", ShoppingCart.class);
-        query.setParameter("customerId", cusId);
-        List<ShoppingCart> cartList = query.getResultList();
         try {
+            getEntityManager();
+            TypedQuery query = entityManager.createNamedQuery("ShoppingCart.findByCustomerId", ShoppingCart.class);
+            query.setParameter("customerId", cusId);
+            List<ShoppingCart> cartList = query.getResultList();
             if (cartList.size() > 0) {
                 return cartList.get(0);
             } else {
@@ -137,7 +119,6 @@ public class ShoppingCartDAO extends MyConnection {
                 cart.setCustomerId(cusId);
                 cart = createShoppingCart(cart);
                 if (cart != null) {
-                    System.out.println(cart.toString());
                     return cart;
                 }
             }
@@ -147,24 +128,31 @@ public class ShoppingCartDAO extends MyConnection {
         return null;
     }
 
-    public ShoppingCart getShoppingCartById(int cartId) {
-        return entityManager.find(ShoppingCart.class, cartId);
+    public ShoppingCart removeAllCartItem(ShoppingCart s) {
+        try {
+            getEntityManager();
+            s.setCartItemList(new ArrayList<CartItem>());
+            entityManager.getTransaction().begin();
+            TypedQuery query = entityManager.createNamedQuery("CartItem.deleteAllItemInCart", CartItem.class);
+            query.setParameter("cartId", s.getCartId());
+            query.executeUpdate();
+            entityManager.getTransaction().commit();
+            return s;
+        } finally {
+            closeConnect();
+        }
     }
 
-    public List<ShoppingCart> getAllShoppingCarts() {
-        return entityManager.createQuery("SELECT sc FROM ShoppingCartDTO sc").getResultList();
-    }
-
-    public void saveShoppingCart(ShoppingCart shoppingCart) {
-        entityManager.persist(shoppingCart);
-    }
-
-    public void updateShoppingCart(ShoppingCart shoppingCart) {
-        entityManager.merge(shoppingCart);
-    }
-
-    public void deleteShoppingCart(int cartId) {
-        ShoppingCart shoppingCart = getShoppingCartById(cartId);
-        entityManager.remove(shoppingCart);
+    public void removeItem(CartItem c) {
+        try {
+            getEntityManager();
+            entityManager.getTransaction().begin();
+            CartItem managedCartItem = entityManager.merge(c);
+            entityManager.remove(managedCartItem);
+            entityManager.flush();
+            entityManager.getTransaction().commit();
+        } finally {
+            closeConnect();
+        }
     }
 }

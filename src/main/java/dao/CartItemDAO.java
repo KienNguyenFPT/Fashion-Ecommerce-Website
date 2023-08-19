@@ -24,6 +24,7 @@ public class CartItemDAO extends MyConnection{
     
     public CartItem createCartItem(Product p, ShoppingCart s){
         try{
+            getEntityManager();
             CartItem c = new CartItem();
             c.setProductId(p);
             c.setCartId(s);

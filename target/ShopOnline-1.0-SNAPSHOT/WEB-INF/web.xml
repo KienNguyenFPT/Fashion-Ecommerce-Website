@@ -16,6 +16,42 @@
         <servlet-name>RemoveProductFromCart</servlet-name>
         <servlet-class>Controller.RemoveProductFromCart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DiscountController</servlet-name>
+        <servlet-class>Controller.DiscountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReloadShoppingCartController</servlet-name>
+        <servlet-class>Controller.ReloadShoppingCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDirectController</servlet-name>
+        <servlet-class>Controller.OrderDirectController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderManagerController</servlet-name>
+        <servlet-class>Controller.OrderManagerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetailController</servlet-name>
+        <servlet-class>Controller.OrderDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderBankTranferController</servlet-name>
+        <servlet-class>Controller.OrderBankTranferController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderPaypalController</servlet-name>
+        <servlet-class>Controller.OrderPaypalController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateStatusOrderController</servlet-name>
+        <servlet-class>Controller.updateStatusOrderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderManagerSortFilterController</servlet-name>
+        <servlet-class>Controller.OrderManagerSortFilterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddToCartController</servlet-name>
         <url-pattern>/AddToCartController</url-pattern>
@@ -32,9 +68,45 @@
         <servlet-name>RemoveProductFromCart</servlet-name>
         <url-pattern>/RemoveProductFromCart</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DiscountController</servlet-name>
+        <url-pattern>/DiscountController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReloadShoppingCartController</servlet-name>
+        <url-pattern>/ReloadShoppingCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDirectController</servlet-name>
+        <url-pattern>/OrderDirectController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderManagerController</servlet-name>
+        <url-pattern>/OrderManagerController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetailController</servlet-name>
+        <url-pattern>/OrderDetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderBankTranferController</servlet-name>
+        <url-pattern>/OrderBankTranferController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderPaypalController</servlet-name>
+        <url-pattern>/OrderPaypalController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateStatusOrderController</servlet-name>
+        <url-pattern>/updateStatusOrderController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderManagerSortFilterController</servlet-name>
+        <url-pattern>/OrderManagerSortFilterController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            3600
         </session-timeout>
     </session-config>
 </web-app>

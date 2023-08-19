@@ -5,7 +5,6 @@
 package dto;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -15,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -37,8 +37,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "OrderTable.findAll", query = "SELECT o FROM OrderTable o"),
     @NamedQuery(name = "OrderTable.findByOrderId", query = "SELECT o FROM OrderTable o WHERE o.orderId = :orderId"),
+    @NamedQuery(name = "OrderTable.findByShipMail", query = "SELECT o FROM OrderTable o WHERE o.shipMail = :shipMail"),
     @NamedQuery(name = "OrderTable.findByOrderDate", query = "SELECT o FROM OrderTable o WHERE o.orderDate = :orderDate"),
+    @NamedQuery(name = "OrderTable.findByShipFee", query = "SELECT o FROM OrderTable o WHERE o.shipFee = :shipFee"),
     @NamedQuery(name = "OrderTable.findByTotalAmount", query = "SELECT o FROM OrderTable o WHERE o.totalAmount = :totalAmount"),
+    @NamedQuery(name = "OrderTable.findByPaymentMethod", query = "SELECT o FROM OrderTable o WHERE o.paymentMethod = :paymentMethod"),
+    @NamedQuery(name = "OrderTable.loadOrder", query = "SELECT o FROM OrderTable o ORDER BY o.orderId DESC"),
+    @NamedQuery(name = "OrderTable.loadOrderByStatus", query = "SELECT o FROM OrderTable o WHERE o.status = :status ORDER BY o.orderId DESC"),
+    @NamedQuery(name = "OrderTable.loadOrderByPaymentMethod", query = "SELECT o FROM OrderTable o WHERE o.paymentMethod = :paymentMethod ORDER BY o.orderId DESC"),
     @NamedQuery(name = "OrderTable.findByStatus", query = "SELECT o FROM OrderTable o WHERE o.status = :status")})
 public class OrderTable implements Serializable {
 
@@ -48,14 +54,47 @@ public class OrderTable implements Serializable {
     @Basic(optional = false)
     @Column(name = "order_id")
     private Integer orderId;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "ship_name")
+    private String shipName;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "ship_mail")
+    private String shipMail;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "ship_phone")
+    private String shipPhone;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "ship_address")
+    private String shipAddress;
     @Column(name = "order_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "ship_fee")
+    private Integer shipFee;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "discount_code")
+    private String discountCode;
     @Basic(optional = false)
     @NotNull
     @Column(name = "total_amount")
-    private BigDecimal totalAmount;
+    private double totalAmount;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "payment_method")
+    private String paymentMethod;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -74,9 +113,14 @@ public class OrderTable implements Serializable {
         this.orderId = orderId;
     }
 
-    public OrderTable(Integer orderId, BigDecimal totalAmount, String status) {
+    public OrderTable(Integer orderId, String shipName, String shipMail, String shipPhone, String shipAddress, double totalAmount, String paymentMethod, String status) {
         this.orderId = orderId;
+        this.shipName = shipName;
+        this.shipMail = shipMail;
+        this.shipPhone = shipPhone;
+        this.shipAddress = shipAddress;
         this.totalAmount = totalAmount;
+        this.paymentMethod = paymentMethod;
         this.status = status;
     }
 
@@ -88,6 +132,38 @@ public class OrderTable implements Serializable {
         this.orderId = orderId;
     }
 
+    public String getShipName() {
+        return shipName;
+    }
+
+    public void setShipName(String shipName) {
+        this.shipName = shipName;
+    }
+
+    public String getShipMail() {
+        return shipMail;
+    }
+
+    public void setShipMail(String shipMail) {
+        this.shipMail = shipMail;
+    }
+
+    public String getShipPhone() {
+        return shipPhone;
+    }
+
+    public void setShipPhone(String shipPhone) {
+        this.shipPhone = shipPhone;
+    }
+
+    public String getShipAddress() {
+        return shipAddress;
+    }
+
+    public void setShipAddress(String shipAddress) {
+        this.shipAddress = shipAddress;
+    }
+
     public Date getOrderDate() {
         return orderDate;
     }
@@ -96,12 +172,36 @@ public class OrderTable implements Serializable {
         this.orderDate = orderDate;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Integer getShipFee() {
+        return shipFee;
+    }
+
+    public void setShipFee(Integer shipFee) {
+        this.shipFee = shipFee;
+    }
+
+    public String getDiscountCode() {
+        return discountCode;
+    }
+
+    public void setDiscountCode(String discountCode) {
+        this.discountCode = discountCode;
+    }
+
+    public double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public String getStatus() {

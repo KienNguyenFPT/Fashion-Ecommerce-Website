@@ -39,6 +39,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Discount.findByValidTo", query = "SELECT d FROM Discount d WHERE d.validTo = :validTo")})
 public class Discount implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "discount_percent")
+    private double discountPercent;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "discount_amount")
+    private int discountAmount;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,11 +60,6 @@ public class Discount implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "code")
     private String code;
-    @Column(name = "discount_amount")
-    private Integer discountAmount;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "discount_percent")
-    private BigDecimal discountPercent;
     @Basic(optional = false)
     @NotNull
     @Column(name = "valid_from")
@@ -104,14 +109,6 @@ public class Discount implements Serializable {
         this.discountAmount = discountAmount;
     }
 
-    public BigDecimal getDiscountPercent() {
-        return discountPercent;
-    }
-
-    public void setDiscountPercent(BigDecimal discountPercent) {
-        this.discountPercent = discountPercent;
-    }
-
     public Date getValidFrom() {
         return validFrom;
     }
@@ -151,6 +148,18 @@ public class Discount implements Serializable {
     @Override
     public String toString() {
         return "dto.Discount[ id=" + id + " ]";
+    }
+
+    public void setDiscountAmount(int discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
     }
     
 }

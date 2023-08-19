@@ -75,13 +75,8 @@
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
-                <a href="" class="btn border">
+                <a href="./cart.jsp" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
                 </a>
             </div>
         </div>
@@ -140,9 +135,10 @@
                                 </div>
                             </div>
                             <a href="contact.jsp" class="nav-item nav-link">Contact</a>
+                            <a href="./OrderManagerController" class="nav-item nav-link">Order Manager</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="/ShopOnline/LoginController" class="nav-item nav-link">Login</a>
+                            <a href="./LoginController" class="nav-item nav-link">Login</a>
                             <a href="" class="nav-item nav-link">Register</a>
                         </div>
                     </div>

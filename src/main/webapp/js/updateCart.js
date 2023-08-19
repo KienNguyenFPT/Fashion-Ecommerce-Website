@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
  */
 
-
-
 function changeQuantity(productId, productQuantity, status) {
     var dataToSend = {
         pId: productId,
@@ -36,7 +34,7 @@ function changeQuantity(productId, productQuantity, status) {
                 updateTotalCart((data * priceProduct) - Number(oldPrice) + Number(totalCart), 10, 0);
             })
             .catch(error => {
-                statusDiv = document.createElement("div");
+                var statusDiv = document.createElement("div");
                 statusDiv.textContent = error;
                 document.getElementById("addCartStatus").appendChild(statusDiv);
                 window.setTimeout(function () {
@@ -72,17 +70,71 @@ function removeProductFromCart(pId) {
             removeItem.remove();
         }
     }).catch(error => {
-        statusDiv = document.createElement("div");
+        var statusDiv = document.createElement("div");
         statusDiv.textContent = error;
         document.getElementById("addCartStatus").appendChild(statusDiv);
         window.setTimeout(function () {
             statusDiv.remove();
         }, 2000);
         return false;
-    })
+    });
 }
 
-function updateTotalCart(totalCart, ship, discount){
+function applyCoupon() {
+    dataToSend = {
+        cp: document.getElementById("coupon").value
+    };
+    fetch('./DiscountController', {
+        method: 'POST',
+        header: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(dataToSend)
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error("Network was not ok. Status: " + response.status);
+        }
+        return response.text();
+    }).then(data => {
+        const discount = JSON.parse(data.toString());
+        var ds = document.getElementById("discount");
+        var totalCart = document.getElementById("totalPriceCart");
+         var totalPriceAll = document.getElementById("totalPriceCartAddShip");
+        var shipFees = document.getElementById("shipFees");
+        if (discount.discountAmount > 0) {
+            ds.innerHTML = "-" + discount.discountAmount + "$";
+        } else if (discount.discountPercent > 0) {
+            ds.innerHTML = "-" + discount.discountPercent + "%";
+        }
+        totalPriceAll.innerHTML = Number(totalCart.innerHTML) + Number(shipFees.innerHTML) - discount.discountAmount - (Number(totalCart.innerHTML) * discount.discountPercent / 100);
+    }).catch(error => {
+        var statusDiv = document.createElement("div");
+        statusDiv.textContent = error;
+        document.getElementById("checkOutForm").appendChild(statusDiv);
+        window.setTimeout(function () {
+            statusDiv.remove();
+        }, 2000);
+        return false;
+    });
+    return false;
+}
+
+function proceedToCheckout() {
+    var cart = document.querySelectorAll(`tr[id="item"]`);
+    if (cart.length > 0){
+        window.location.assign("checkout.jsp");
+    }else{
+        var statusDiv = document.createElement("div");
+        statusDiv.textContent = "Cart empty!";
+        document.getElementById("addCartStatus").appendChild(statusDiv);
+        window.setTimeout(function () {
+            statusDiv.remove();
+        }, 2000);
+    }
+}
+
+
+function updateTotalCart(totalCart, ship, discount) {
     var changeTotalPriceCart = document.getElementById("totalPriceCart");
     changeTotalPriceCart.innerHTML = totalCart;
     var changeTotalPriceCartAddShip = document.getElementById("totalPriceCartAddShip");

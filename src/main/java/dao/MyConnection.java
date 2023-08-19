@@ -14,16 +14,18 @@ import javax.persistence.Persistence;
  * @author Raiku
  */
 public class MyConnection implements Serializable {
+
     static EntityManagerFactory entityManagerFactory;
     static EntityManager entityManager;
-    public static EntityManager getEntityManager(){
+
+    public static EntityManager getEntityManager() {
         entityManagerFactory = Persistence.createEntityManagerFactory("com.raiyugi_ShopOnline_war_1.0-SNAPSHOTPU");
         entityManager = entityManagerFactory.createEntityManager();
         return entityManager;
     }
-    
-    public static void closeConnect(){
+
+    public static void closeConnect() {
         entityManager.close();
         entityManagerFactory.close();
     }
-}
+}   

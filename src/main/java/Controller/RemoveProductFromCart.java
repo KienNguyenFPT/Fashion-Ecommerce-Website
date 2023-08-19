@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dao.CartItemDAO;
 import dao.ShoppingCartDAO;
-import dto.CartItem;
 import dto.ShoppingCart;
 import java.io.BufferedReader;
 import java.io.IOException;

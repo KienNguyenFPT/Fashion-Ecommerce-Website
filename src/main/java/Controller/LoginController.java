@@ -9,7 +9,6 @@ import dao.ShoppingCartDAO;
 import dto.Customer;
 import dto.ShoppingCart;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +40,7 @@ public class LoginController extends HttpServlet {
             ShoppingCart s = new ShoppingCartDAO().loadShoppingCart(c);
             session.setAttribute("shoppingCart", s);
         }else{
-            System.out.println("null");
+            response.sendRedirect("404.jsp");
         }
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
