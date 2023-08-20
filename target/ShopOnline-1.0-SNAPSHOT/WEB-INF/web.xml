@@ -60,6 +60,14 @@
         <servlet-name>openChatRoomController</servlet-name>
         <servlet-class>Controller.openChatRoomController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetChatRoomAddress</servlet-name>
+        <servlet-class>Controller.GetChatRoomAddress</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateMessageController</servlet-name>
+        <servlet-class>Controller.UpdateMessageController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddToCartController</servlet-name>
         <url-pattern>/AddToCartController</url-pattern>
@@ -119,6 +127,14 @@
     <servlet-mapping>
         <servlet-name>openChatRoomController</servlet-name>
         <url-pattern>/openChatRoomController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetChatRoomAddress</servlet-name>
+        <url-pattern>/GetChatRoomAddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateMessageController</servlet-name>
+        <url-pattern>/UpdateMessageController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

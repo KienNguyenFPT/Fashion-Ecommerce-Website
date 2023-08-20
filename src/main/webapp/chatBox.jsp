@@ -4,6 +4,7 @@
     Author     : Raiku
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,6 +26,25 @@
             body{
                 overflow-x: hidden;
             }
+            #chat-area {
+                overflow-y: scroll;
+            }
+            .message-container {
+                display: flex;
+                margin: 10px 0;
+                align-items: flex-start;
+            }
+
+            .message-sender {
+                font-weight: bold;
+                margin-right: 5px;
+            }
+
+            .message-content {
+                background-color: #f0f0f0;
+                padding: 5px;
+                border-radius: 5px;
+            }
         </style>
         <title>Chat Box</title>
     </head>
@@ -34,8 +54,13 @@
             <div class="row">
                 <div class="card col-lg-12">
                     <div class="card-body d-flex flex-column justify-content-between" style="height: 50vh;">
-                        <div id="message-content">
-                            
+                        <div id="chat-area">
+                            <c:forEach items="${sessionScope.chatList}" var="mess">
+                                <div class="message-container">
+                                    <span class="message-sender">${mess.senderName}:</span>
+                                    <div class="message-content">${mess.content}</div>
+                                </div>
+                            </c:forEach>
                         </div>
                         <div id="input" class="mb-2 d-flex justify-content-center align-items-center">
                             <input class="border-right border-5 rounded" id="message-input" type="text" placeholder="Enter message....">
@@ -45,7 +70,7 @@
                 </div>
             </div>
         </div>
-
+        <div id="status"></div>
         <%@include file="footer.jsp" %>
         <<script src="js/chatBox.js"></script>
     </body>

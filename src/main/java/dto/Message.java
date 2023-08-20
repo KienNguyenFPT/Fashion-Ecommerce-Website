@@ -35,8 +35,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Message.findAll", query = "SELECT m FROM Message m"),
     @NamedQuery(name = "Message.findByMessageId", query = "SELECT m FROM Message m WHERE m.messageId = :messageId"),
     @NamedQuery(name = "Message.findBySenderId", query = "SELECT m FROM Message m WHERE m.senderId = :senderId"),
+    @NamedQuery(name = "Message.findByRoomId", query = "SELECT m FROM Message m WHERE m.roomId.roomId = :roomId"),
     @NamedQuery(name = "Message.findByTimestamp", query = "SELECT m FROM Message m WHERE m.timestamp = :timestamp")})
 public class Message implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "senderName")
+    private String senderName;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -140,6 +148,14 @@ public class Message implements Serializable {
     @Override
     public String toString() {
         return "dto.Message[ messageId=" + messageId + " ]";
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
     
 }

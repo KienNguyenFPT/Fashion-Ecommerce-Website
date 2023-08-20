@@ -5,7 +5,9 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,9 +32,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Chatroom.findAll", query = "SELECT c FROM Chatroom c"),
     @NamedQuery(name = "Chatroom.findByRoomId", query = "SELECT c FROM Chatroom c WHERE c.roomId = :roomId"),
-    @NamedQuery(name = "Chatroom.findByUser1Id", query = "SELECT c FROM Chatroom c WHERE c.user1Id = :id"),
-    @NamedQuery(name = "Chatroom.findByUser2Id", query = "SELECT c FROM Chatroom c WHERE c.user2Id = :id"),})
+    @NamedQuery(name = "Chatroom.findByUser1Id", query = "SELECT c FROM Chatroom c WHERE c.user1Id = :id ORDER BY c.roomId DESC"),
+    @NamedQuery(name = "Chatroom.findByUser2Id", query = "SELECT c FROM Chatroom c WHERE c.user2Id = :id OR c.user2Id IS NULL ORDER BY c.roomId DESC"),})
 public class Chatroom implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomId")
+    private List<Message> messageList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -99,6 +106,15 @@ public class Chatroom implements Serializable {
     @Override
     public String toString() {
         return "dto.Chatroom[ roomId=" + roomId + " ]";
+    }
+
+    @XmlTransient
+    public List<Message> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(List<Message> messageList) {
+        this.messageList = messageList;
     }
 
 }

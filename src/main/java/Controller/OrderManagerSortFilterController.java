@@ -11,7 +11,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import dao.OrderTableDAO;
 import dto.OrderTable;
-import dto.OrderTableDTO;
+import model.OrderTableModel;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -51,9 +51,9 @@ public class OrderManagerSortFilterController extends HttpServlet {
             String require = jsonObject.get("require").getAsString();
             if (require != null && require.length() > 0) {
                 List<OrderTable> orderList = new OrderTableDAO().loadOrderTableFollow(require);
-                List<OrderTableDTO> orderResult = new ArrayList<OrderTableDTO>();
+                List<OrderTableModel> orderResult = new ArrayList<OrderTableModel>();
                 for (OrderTable o : orderList){
-                    OrderTableDTO oTemp = new OrderTableDTO(o.getOrderId(), o.getOrderDate(), o.getTotalAmount(), o.getPaymentMethod(), o.getStatus(), o.getCustomerId().getCustomerId());
+                    OrderTableModel oTemp = new OrderTableModel(o.getOrderId(), o.getOrderDate(), o.getTotalAmount(), o.getPaymentMethod(), o.getStatus(), o.getCustomerId().getCustomerId());
                     orderResult.add(oTemp);
                 }
                 response.setContentType("application/json");

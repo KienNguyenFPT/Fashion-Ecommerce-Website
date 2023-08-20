@@ -59,42 +59,66 @@
     </head>
     <body>
         <%@include file="header.jsp" %>
-        <div class="col-12 d-flex align-items-center justify-content-center">
-            <label class="p-2 m-2" for="createChat">Have problem?</label>
-            <button class="p-2 m-2" id="createChat">Chat Now</button>
-        </div>
-        <div id="status"></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Room ID</th>
-                    <th>User ID</th>
-                    <th>Chat</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:if test="${sessionScope.userRole == 'customer'}">
-                    <c:forEach items="${sessionScope.listChatRoom}" var="room">
-                        <tr>
-                            <td>${room.roomId}</td>
-                            <td>${room.user2Id.adminId}</td>
-                            <td><button id="chat" value="${room.roomId}">Chat now!</button></td>
-                        </tr>
-                    </c:forEach>
-                </c:if>
-                <c:if test="${sessionScope.userRole == 'admin'}">
-                    <c:forEach items="${sessionScope.listChatRoom}" var="room">
-                        <tr>
-                            <td>${room.roomId}</td>
-                            <td>${room.user1Id.customerId}</td>
-                            <td><button id="chat" value="${room.roomId}">Continue!</button></td>
-                        </tr>
-                    </c:forEach>
-                </c:if>
-            </tbody>
-        </table>
+        <form action="openChatRoomController">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <label class="p-2 m-2" for="createChat">Have problem?</label>
+                <button class="p-2 m-2" id="createChat" name="chat" value="createNew">Chat Now</button>
+            </div>
+            <div id="status"></div>
 
-        <script src="js/messenger.js"></script>
+            <c:choose>
+                <c:when test="${sessionScope.userRole == 'customer'}">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Room ID</th>
+                                <th>Admin ID</th>
+                                <th>Chat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${sessionScope.listChatRoom}" var="room">
+                                <tr>
+                                    <td>${room.roomId}</td>
+                                    <td>${room.user2Id.adminId}</td>
+                                    <td><button name="chat" value="${room.roomId}">Chat now!</button></td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
+                <c:when test="${sessionScope.userRole == 'admin'}">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Room ID</th>
+                                <th>Customer ID</th>
+                                <th>Customer Name</th>
+                                <th>Customer Email</th>
+                                <th>Customer Phone</th>
+                                <th>Customer Address</th>
+                                <th>Chat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${sessionScope.listChatRoom}" var="room">
+                                <tr>
+                                    <td>${room.roomId}</td>
+                                    <td>${room.user1Id.customerId}</td>
+                                    <td>${room.user1Id.customerName}</td>
+                                    <td>${room.user1Id.email}</td>
+                                    <td>${room.user1Id.phone}</td>
+                                    <td>${room.user1Id.address}</td>
+                                    <td><button name="chat" value="${room.roomId}">Continue!</button></td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+
+                </c:when>
+            </c:choose>
+        </form>
+        <script src="js/messenger.js" defer></script>
 
         <%@include file="footer.jsp" %>
     </body>

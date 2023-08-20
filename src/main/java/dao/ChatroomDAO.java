@@ -27,10 +27,34 @@ public class ChatroomDAO extends MyConnection{
         }
     }
     
+    public Chatroom getChatroomById(int id){
+        try{
+            getEntityManager();
+            return entityManager.find(Chatroom.class, id);
+        }finally{
+            closeConnect();
+        }
+    }
+    
     public List<Chatroom> getChatroomOfCustomer(Customer c){
         try{
             getEntityManager();
             return entityManager.createNamedQuery("Chatroom.findByUser1Id", Chatroom.class).setParameter("id", c).getResultList();
+        }finally{
+            closeConnect();
+        }
+    }
+    
+    public Chatroom createNewRoom(Customer c){
+        try{
+            getEntityManager();
+            Chatroom room = new Chatroom();
+            room.setUser1Id(c);
+            entityManager.getTransaction().begin();
+            entityManager.persist(room);
+            entityManager.flush();
+            entityManager.getTransaction().commit();
+            return room;
         }finally{
             closeConnect();
         }

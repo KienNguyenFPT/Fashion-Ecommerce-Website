@@ -4,6 +4,9 @@
  */
 package Controller;
 
+import dao.ChatroomDAO;
+import dao.MessageDAO;
+import dto.Customer;
 import dto.Message;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,18 +34,29 @@ public class openChatRoomController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String room = request.getParameter("getRoom");
-        String roomId = request.getParameter("roomId");
+        String room = request.getParameter("chat");
         HttpSession session = request.getSession();
-        String role = (String) session.getAttribute("role");
-        if (room.equals("createNew") && role.equals("admin")){
+        String role = (String) session.getAttribute("userRole");
+        int roomId = 0;
+        if ((room.equals("createNew") && role.equals("admin")) || role == null){
             response.sendRedirect("404.jsp");
         } else if(room.equals("createNew") && role.equals("customer")){
-            
-        } else{
+            Customer c = (Customer) session.getAttribute("user");
+            roomId = new ChatroomDAO().createNewRoom(c).getRoomId();
             session.setAttribute("chatRoom", roomId);
+            response.sendRedirect("chatBox.jsp");
+        } else if (room != null && room.length() > 0){
+            roomId = Integer.parseInt(room);
+            session.setAttribute("chatRoom", roomId);
+            List<Message> chatList = new MessageDAO().getChatListfromRoomId(roomId);
+            session.setAttribute("chatList", chatList);
+            response.sendRedirect("chatBox.jsp");
+        }else{
+            request.getRequestDispatcher("404.jsp").forward(request, response);
         }
-        
+        if (roomId > 0){
+            session.setAttribute("room", new ChatroomDAO().getChatroomById(roomId));
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

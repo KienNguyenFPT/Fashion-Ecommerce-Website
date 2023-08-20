@@ -47,7 +47,7 @@ public class MessengerManagerController extends HttpServlet {
             list = new ChatroomDAO().getChatroomOfAdmin(a);
         }
         session.setAttribute("listChatRoom", list);
-        response.getWriter().write("success");
+        response.sendRedirect("messenger.jsp");
         }catch(Exception e){
             throw new Error(e.getMessage());
         }
