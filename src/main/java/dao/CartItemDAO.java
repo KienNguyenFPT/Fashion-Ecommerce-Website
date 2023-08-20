@@ -19,7 +19,6 @@ import javax.persistence.TypedQuery;
  */
 public class CartItemDAO extends MyConnection{
     public CartItemDAO() {
-        getEntityManager();
     }
     
     public CartItem createCartItem(Product p, ShoppingCart s){
@@ -42,6 +41,10 @@ public class CartItemDAO extends MyConnection{
     }
     
     public CartItem getCartItemById(int cId){
-        return entityManager.find(CartItem.class, cId);
+        try{
+            return entityManager.find(CartItem.class, cId);
+        }finally{
+            closeConnect();
+        }
     }
 }

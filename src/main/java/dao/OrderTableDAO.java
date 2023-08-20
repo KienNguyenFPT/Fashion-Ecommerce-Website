@@ -22,7 +22,6 @@ import javax.persistence.TypedQuery;
 public class OrderTableDAO extends MyConnection {
 
     public OrderTableDAO() {
-        getEntityManager();
     }
 
     public OrderTable addNewOrder(OrderTable o, ShoppingCart s, Discount d) throws Exception {
@@ -59,11 +58,11 @@ public class OrderTableDAO extends MyConnection {
     }
 
     public double updateOrderItemList(OrderTable o, ShoppingCart s) {
+        double total = 0;
         try {
             getEntityManager();
             List<OrderItem> orderList = new ArrayList<OrderItem>();
             List<CartItem> cartList = s.getCartItemList();
-            double total = 0;
             entityManager.getTransaction().begin();
             for (CartItem c : cartList) {
                 OrderItem orderItem = new OrderItem();
@@ -78,14 +77,23 @@ public class OrderTableDAO extends MyConnection {
             entityManager.flush();
             entityManager.getTransaction().commit();
             return total;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return total;
         } finally {
             closeConnect();
         }
     }
 
     public List<OrderTable> loadOrderTable() {
-        TypedQuery query = entityManager.createNamedQuery("OrderTable.loadOrder", OrderTable.class);
+        try{
+            getEntityManager();
+            TypedQuery query = entityManager.createNamedQuery("OrderTable.loadOrder", OrderTable.class);
         return query.getResultList();
+        } finally {
+            closeConnect();
+        }
     }
 
     public List<OrderTable> loadOrderTableFollow(String s) {
@@ -135,6 +143,9 @@ public class OrderTableDAO extends MyConnection {
             entityManager.merge(o);
             entityManager.flush();
             entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
         } finally {
             closeConnect();
         }

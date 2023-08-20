@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Footer Start -->
-<div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+<div class="container-fluid bg-secondary text-dark pt-5">
     <div class="row px-xl-5 pt-5">
         <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
             <a href="" class="text-decoration-none">

@@ -149,6 +149,7 @@
                                 </div>
                                 <a href="contact.jsp" class="nav-item nav-link">Contact</a>
                                 <a href="./OrderManagerController" class="nav-item nav-link">Order Manager</a>
+                                <a href="./MessengerManagerController" class="nav-item nav-link">Messenger</a>
                             </div>
                             <div class="navbar-nav ml-auto py-0">
                                 <a href="" class="nav-item nav-link">Login</a>
@@ -350,7 +351,6 @@
 
         <script src="js/main.js"></script>
         <script src="js/updateCart.js"></script>
-        <script src="js/reloadCart.js"></script>
     </body>
 
 </html>

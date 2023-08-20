@@ -7,6 +7,7 @@ package dto;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByAddress", query = "SELECT c FROM Customer c WHERE c.address = :address"),
     @NamedQuery(name = "Customer.findByStatus", query = "SELECT c FROM Customer c WHERE c.status = :status")})
 public class Customer implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1Id")
+    private List<Chatroom> chatroomList;
 
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Lob
@@ -218,6 +222,15 @@ public class Customer implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @XmlTransient
+    public List<Chatroom> getChatroomList() {
+        return chatroomList;
+    }
+
+    public void setChatroomList(List<Chatroom> chatroomList) {
+        this.chatroomList = chatroomList;
     }
     
 }

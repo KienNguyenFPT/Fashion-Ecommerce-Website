@@ -41,6 +41,15 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByQuantitySold", query = "SELECT p FROM Product p WHERE p.quantitySold = :quantitySold")})
 public class Product implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "new_price")
+    private int price;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "old_price")
+    private int oldPrice;
+
     @OneToMany(mappedBy = "productId")
     private List<OrderItem> orderItemList;
 
@@ -60,10 +69,6 @@ public class Product implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "img")
     private String img;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "price")
-    private int price;
     @Basic(optional = false)
     @NotNull
     @Column(name = "quantity")
@@ -200,6 +205,14 @@ public class Product implements Serializable {
 
     public void setOrderItemList(List<OrderItem> orderItemList) {
         this.orderItemList = orderItemList;
+    }
+
+    public int getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(int oldPrice) {
+        this.oldPrice = oldPrice;
     }
     
 }

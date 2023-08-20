@@ -38,7 +38,6 @@ public class ShoppingCartDAO extends MyConnection {
                 return s;
             }
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
             System.out.println(e.getMessage());
             return null;
         }
@@ -82,6 +81,7 @@ public class ShoppingCartDAO extends MyConnection {
                 }
             }
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             closeConnect();
@@ -138,6 +138,10 @@ public class ShoppingCartDAO extends MyConnection {
             query.executeUpdate();
             entityManager.getTransaction().commit();
             return s;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return s;
         } finally {
             closeConnect();
         }
@@ -151,6 +155,9 @@ public class ShoppingCartDAO extends MyConnection {
             entityManager.remove(managedCartItem);
             entityManager.flush();
             entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
         } finally {
             closeConnect();
         }

@@ -144,7 +144,7 @@ function orderPaypal() {
 }
 
 function getShipInfo() {
-    shipAdr = document.getElementById("shipAdr").value + " - " + document.getElementById("shipAdrCity").value + document.getElementById("shipAdrProvince").value + " - " + document.getElementById("shipAdrCountry").value;
+    shipAdr = document.getElementById("shipAdr").value + " - " + document.getElementById("shipAdrCity").value + " - " + document.getElementById("shipAdrProvince").value + " - " + document.getElementById("shipAdrCountry").value;
     shipName = document.getElementById("shipFirstName").value + " " + document.getElementById("shipLastName").value;
     shipEmail = document.getElementById("shipEmail").value;
     shipPhone = document.getElementById("shipPhone").value;

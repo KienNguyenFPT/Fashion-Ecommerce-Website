@@ -52,6 +52,14 @@
         <servlet-name>OrderManagerSortFilterController</servlet-name>
         <servlet-class>Controller.OrderManagerSortFilterController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MessengerManagerController</servlet-name>
+        <servlet-class>Controller.MessengerManagerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>openChatRoomController</servlet-name>
+        <servlet-class>Controller.openChatRoomController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddToCartController</servlet-name>
         <url-pattern>/AddToCartController</url-pattern>
@@ -103,6 +111,14 @@
     <servlet-mapping>
         <servlet-name>OrderManagerSortFilterController</servlet-name>
         <url-pattern>/OrderManagerSortFilterController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MessengerManagerController</servlet-name>
+        <url-pattern>/MessengerManagerController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>openChatRoomController</servlet-name>
+        <url-pattern>/openChatRoomController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

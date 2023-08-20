@@ -11,16 +11,16 @@ import javax.persistence.EntityManager;
  *
  * @author Raiku
  */
-public class ProductDAO extends MyConnection{
+public class ProductDAO extends MyConnection {
 
     public ProductDAO() {
-        getEntityManager();
     }
-    
-    public Product getProductById(int id){
-        try{
+
+    public Product getProductById(int id) {
+        try {
+            getEntityManager();
             return entityManager.find(Product.class, id);
-        }finally{
+        } finally {
             closeConnect();
         }
     }

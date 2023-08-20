@@ -11,8 +11,8 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author Raiku
  */
-@ServerEndpoint("/endpoint")
-public class ContactWebSocketController {
+@ServerEndpoint("/chatmessenger/{roomId}")
+public class MessengerWebSocketController {
 
     @OnMessage
     public String onMessage(String message) {
