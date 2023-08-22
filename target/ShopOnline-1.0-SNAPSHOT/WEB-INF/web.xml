@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>Controller.LoginController</servlet-class>
+        <servlet-class>Controller.LoginCustomerController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateProductQuantityController</servlet-name>
@@ -67,6 +67,14 @@
     <servlet>
         <servlet-name>UpdateMessageController</servlet-name>
         <servlet-class>Controller.UpdateMessageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchController</servlet-name>
+        <servlet-class>Controller.SearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilterByPriceController</servlet-name>
+        <servlet-class>Controller.FilterByPriceController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddToCartController</servlet-name>
@@ -135,6 +143,14 @@
     <servlet-mapping>
         <servlet-name>UpdateMessageController</servlet-name>
         <url-pattern>/UpdateMessageController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchController</servlet-name>
+        <url-pattern>/SearchController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterByPriceController</servlet-name>
+        <url-pattern>/FilterByPriceController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -97,7 +97,6 @@ function updateMessage(dataToSend){
         } else
             return response.text();
     }).then(data => {
-        alert("sdsd");
     }).catch(error => {
         var status = document.createElement("div");
         status.innerText = error;

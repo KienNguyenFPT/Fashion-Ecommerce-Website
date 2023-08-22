@@ -7,7 +7,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetch('./MessengerManagerController', {
         method: 'GET',
-        'content-type': 'application/json'
+        headers: {
+            'content-type': 'application/json'
+        }
     }).then(response => {
         if (!response.ok) {
             throw new Error('Network was not ok! Status: ' + response.status);

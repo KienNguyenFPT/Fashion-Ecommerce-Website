@@ -45,7 +45,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OrderTable.loadOrder", query = "SELECT o FROM OrderTable o ORDER BY o.orderId DESC"),
     @NamedQuery(name = "OrderTable.loadOrderByStatus", query = "SELECT o FROM OrderTable o WHERE o.status = :status ORDER BY o.orderId DESC"),
     @NamedQuery(name = "OrderTable.loadOrderByPaymentMethod", query = "SELECT o FROM OrderTable o WHERE o.paymentMethod = :paymentMethod ORDER BY o.orderId DESC"),
-    @NamedQuery(name = "OrderTable.findByStatus", query = "SELECT o FROM OrderTable o WHERE o.status = :status")})
+    @NamedQuery(name = "OrderTable.loadOrderByMethodAndStatus", query = "SELECT o FROM OrderTable o WHERE o.paymentMethod = :paymentMethod AND o.status = :status ORDER BY o.orderId DESC"),
+    @NamedQuery(name = "OrderTable.findByStatus", query = "SELECT o FROM OrderTable o WHERE o.status = :status"),
+    @NamedQuery(name = "OrderTable.countAll", query = "SELECT COUNT(o) FROM OrderTable o"),
+    @NamedQuery(name = "OrderTable.countByStatus", query = "SELECT COUNT(o) FROM OrderTable o WHERE o.status = :status"),
+    @NamedQuery(name = "OrderTable.countByMethod", query = "SELECT COUNT(o) FROM OrderTable o WHERE o.paymentMethod = :paymentMethod"),
+    @NamedQuery(name = "OrderTable.countByStatusAndMethod", query = "SELECT COUNT(o) FROM OrderTable o WHERE o.status = :status AND o.paymentMethod = :paymentMethod")})
 public class OrderTable implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -86,51 +86,90 @@ public class OrderTableDAO extends MyConnection {
         }
     }
 
-    public List<OrderTable> loadOrderTable() {
-        try{
+    public List<OrderTable> loadOrderTable(int offset) {
+        try {
             getEntityManager();
             TypedQuery query = entityManager.createNamedQuery("OrderTable.loadOrder", OrderTable.class);
-        return query.getResultList();
+            query.setMaxResults(10);
+            query.setFirstResult(offset);
+            return query.getResultList();
         } finally {
             closeConnect();
         }
     }
 
-    public List<OrderTable> loadOrderTableFollow(String s) {
+    public List<OrderTable> loadOrderByStatus(String status, int offset) {
         try {
             getEntityManager();
-            TypedQuery query;
-            if (s.equals("paypal")) {
-                query = entityManager.createNamedQuery("OrderTable.loadOrderByPaymentMethod", OrderTable.class);
-                query.setParameter("paymentMethod", "PayPal");
-                return query.getResultList();
-            } else if (s.equals("direct")) {
-                query = entityManager.createNamedQuery("OrderTable.loadOrderByPaymentMethod", OrderTable.class);
-                query.setParameter("paymentMethod", "direct");
-                return query.getResultList();
-            } else if (s.equals("bank")) {
-                query = entityManager.createNamedQuery("OrderTable.loadOrderByPaymentMethod", OrderTable.class);
-                query.setParameter("paymentMethod", "Bank");
-                return query.getResultList();
-            } else if (s.equals("displayPending")) {
-                query = entityManager.createNamedQuery("OrderTable.loadOrderByStatus", OrderTable.class);
-                query.setParameter("status", "pending");
-                return query.getResultList();
-            } else if (s.equals("displayPaid")) {
-                query = entityManager.createNamedQuery("OrderTable.loadOrderByStatus", OrderTable.class);
-                query.setParameter("status", "paid");
-                return query.getResultList();
-            }else if (s.equals("displayProcessing")) {
-                query = entityManager.createNamedQuery("OrderTable.loadOrderByStatus", OrderTable.class);
-                query.setParameter("status", "processing");
-                return query.getResultList();
-            } else if (s.equals("displayComplete")) {
-                query = entityManager.createNamedQuery("OrderTable.loadOrderByStatus", OrderTable.class);
-                query.setParameter("status", "completed");
-                return query.getResultList();
-            }
-            return loadOrderTable();
-        }finally{
+            TypedQuery query = entityManager.createNamedQuery("OrderTable.loadOrderByStatus", OrderTable.class);
+            query.setParameter("status", status);
+            query.setMaxResults(10);
+            query.setFirstResult(offset);
+            return query.getResultList();
+        } finally {
+            closeConnect();
+        }
+    }
+
+    public List<OrderTable> loadOrderByMethod(String method, int offset) {
+        try {
+            getEntityManager();
+            TypedQuery query = entityManager.createNamedQuery("OrderTable.loadOrderByPaymentMethod", OrderTable.class);
+            query.setParameter("paymentMethod", method);
+            query.setMaxResults(10);
+            query.setFirstResult(offset);
+            return query.getResultList();
+        } finally {
+            closeConnect();
+        }
+    }
+
+    public List<OrderTable> loadOrderByStatusAndMethod(String method, String status, int offset) {
+        try {
+            getEntityManager();
+            TypedQuery query = entityManager.createNamedQuery("OrderTable.loadOrderByMethodAndStatus", OrderTable.class);
+            query.setParameter("paymentMethod", method);
+            query.setParameter("status", status);
+            query.setMaxResults(10);
+            query.setFirstResult(offset);
+            return query.getResultList();
+        } finally {
+            closeConnect();
+        }
+    }
+
+    public long loadTotalOrderByMethod(String method) {
+        try {
+            getEntityManager();
+            return entityManager.createNamedQuery("OrderTable.countByMethod", Long.class).setParameter("paymentMethod", method).getSingleResult();
+        } finally {
+            closeConnect();
+        }
+    }
+
+    public long loadTotalOrderByStatus(String status) {
+        try {
+            getEntityManager();
+            return entityManager.createNamedQuery("OrderTable.countByStatus", Long.class).setParameter("status", status).getSingleResult();
+        } finally {
+            closeConnect();
+        }
+    }
+
+    public long loadTotalOrder() {
+        try {
+            getEntityManager();
+            return entityManager.createNamedQuery("OrderTable.countAll", Long.class).getSingleResult();
+        } finally {
+            closeConnect();
+        }
+    }
+
+    public long loadTotalOrderByMethodAndStatus(String method, String status) {
+        try {
+            getEntityManager();
+            return entityManager.createNamedQuery("OrderTable.countByStatusAndMethod", Long.class).setParameter("status", status).setParameter("paymentMethod", method).getSingleResult();
+        } finally {
             closeConnect();
         }
     }

@@ -185,8 +185,8 @@ figure {
 }
 
 img {
-  vertical-align: middle;
-  border-style: none;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 svg {

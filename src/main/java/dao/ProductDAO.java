@@ -4,8 +4,13 @@
  */
 package dao;
 
+import static dao.MyConnection.closeConnect;
+import static dao.MyConnection.entityManager;
+import static dao.MyConnection.getEntityManager;
 import dto.Product;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -21,6 +26,22 @@ public class ProductDAO extends MyConnection {
             getEntityManager();
             return entityManager.find(Product.class, id);
         } finally {
+            closeConnect();
+        }
+    }
+    
+     public List<Product> getProductbySearch(String name){
+        try{
+            getEntityManager();
+            TypedQuery query = entityManager.createNamedQuery("Product.findByName", Product.class);
+            query.setParameter("name", "%" + name + "%");
+            List<Product> rs = query.getResultList();
+            if (rs.size() > 0){
+                return rs;
+            }else{
+                return null;
+            }
+        }finally{
             closeConnect();
         }
     }

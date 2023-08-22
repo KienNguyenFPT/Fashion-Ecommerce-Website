@@ -59,4 +59,18 @@ public class ChatroomDAO extends MyConnection{
             closeConnect();
         }
     }
+    
+    public void updateUser2IdChatroom(Admin a, String roomId){
+        try{
+            getEntityManager();
+            Chatroom room = entityManager.find(Chatroom.class, Integer.parseInt(roomId));
+            room.setUser2Id(a);
+            entityManager.getTransaction().begin();
+            entityManager.persist(room);
+            entityManager.flush();
+            entityManager.getTransaction().commit();
+        }finally{
+            closeConnect();
+        } 
+    }
 }

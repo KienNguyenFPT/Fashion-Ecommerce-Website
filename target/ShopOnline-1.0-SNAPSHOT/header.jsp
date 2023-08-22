@@ -43,25 +43,21 @@
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
-            <form action="">
+            <form action="SearchController" method="GET">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
-                    <div class="input-group-append">
+                    <input name="search" id="input-search" type="text" class="form-control" placeholder="Search for products">
+                    <button class="btn btn-outline-primary d-flex align-items-center" style="border: none; background: none;">
                         <span class="input-group-text bg-transparent text-primary">
                             <i class="fa fa-search"></i>
                         </span>
-                    </div>
+                    </button>
                 </div>
+
             </form>
         </div>
-        <div class="col-lg-3 col-6 text-right">
-            <a href="" class="btn border">
-                <i class="fas fa-heart text-primary"></i>
-                <span class="badge">0</span>
-            </a>
-            <a href="" class="btn border">
+        <div class="col-lg-1 col-2 text-right">
+            <a href="./cart.jsp" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge">0</span>
             </a>
         </div>
     </div>
@@ -109,9 +105,8 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="index.jsp" class="nav-item nav-link">Home</a>
-                        <a href="shop.jsp" class="nav-item nav-link">Shop</a>
-                        <a href="detail.jsp" class="nav-item nav-link">Shop Detail</a>
+                        <a href="home" class="nav-item nav-link">Home</a>
+                        <a href="shop" class="nav-item nav-link">Shop</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu rounded-0 m-0">
@@ -124,8 +119,8 @@
                         <a href="./MessengerManagerController" class="nav-item nav-link">Messenger</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="./LoginController" class="nav-item nav-link">Login</a>
-                        <a href="" class="nav-item nav-link">Register</a>
+                        <a href="./loginAdmin.jsp" class="nav-item nav-link">Login Admin</a>
+                        <a href="./loginCustomer.jsp" class="nav-item nav-link">Login Customer</a>
                     </div>
                 </div>
             </nav>

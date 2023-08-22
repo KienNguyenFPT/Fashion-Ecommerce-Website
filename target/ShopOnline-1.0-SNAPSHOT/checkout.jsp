@@ -92,7 +92,6 @@
                     </a>
                     <a href="" class="btn border">
                         <i class="fas fa-shopping-cart text-primary"></i>
-                        <span class="badge">${shoppingList.size()}</span>
                     </a>
                 </div>
             </div>
@@ -110,23 +109,14 @@
                     </a>
                     <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                         <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link" data-toggle="dropdown">Dresses <i class="fa fa-angle-down float-right mt-1"></i></a>
-                                <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                                    <a href="" class="dropdown-item">Men's Dresses</a>
-                                    <a href="" class="dropdown-item">Women's Dresses</a>
-                                    <a href="" class="dropdown-item">Baby's Dresses</a>
-                                </div>
-                            </div>
-                            <a href="" class="nav-item nav-link">Shirts</a>
-                            <a href="" class="nav-item nav-link">Jeans</a>
-                            <a href="" class="nav-item nav-link">Swimwear</a>
-                            <a href="" class="nav-item nav-link">Sleepwear</a>
-                            <a href="" class="nav-item nav-link">Sportswear</a>
-                            <a href="" class="nav-item nav-link">Jumpsuits</a>
-                            <a href="" class="nav-item nav-link">Blazers</a>
-                            <a href="" class="nav-item nav-link">Jackets</a>
-                            <a href="" class="nav-item nav-link">Shoes</a>
+                            <!-- Load all categories to server -->
+                            <ul>
+                                <c:forEach items="${listC}" var="o">
+                                    <li class="nav-item">
+                                        <a href="category?cid=${o.category_id}" class="nav-link">${o.cname}</a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
                         </div>
                     </nav>
                 </div>
@@ -140,7 +130,7 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a href="index.jsp" class="nav-item nav-link">Home</a>
+                                <a href="home" class="nav-item nav-link">Home</a>
                                 <a href="shop.jsp" class="nav-item nav-link">Shop</a>
                                 <a href="detail.jsp" class="nav-item nav-link">Shop Detail</a>
                                 <div class="nav-item dropdown">
@@ -354,7 +344,7 @@
         <!-- Footer Start -->
         <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
             <div class="row px-xl-5 pt-5">
-                <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <div class="col-lg-6 col-md-12 mb-5 pr-3 pr-xl-5">
                     <a href="" class="text-decoration-none">
                         <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
                     </a>
@@ -363,31 +353,19 @@
                     <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>Group2@gmail.com</p>
                     <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+84 8147 4189</p>
                 </div>
-                <div class="col-lg-8 col-md-12">
+                <div class="col-lg-6 col-md-12">
                     <div class="row">
-                        <div class="col-md-4 mb-5">
+                        <div class="col-md-6 mb-5">
                             <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
                             <div class="d-flex flex-column justify-content-start">
                                 <a class="text-dark mb-2" href="index.jsp"><i class="fa fa-angle-right mr-2"></i>Home</a>
                                 <a class="text-dark mb-2" href="shop.jsp"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                                <a class="text-dark mb-2" href="detail.jsp"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
                                 <a class="text-dark mb-2" href="cart.jsp"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                                 <a class="text-dark mb-2" href="checkout.jsp"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
                                 <a class="text-dark" href="contact.jsp"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-5">
-                            <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
-                            <div class="d-flex flex-column justify-content-start">
-                                <a class="text-dark mb-2" href="index.jsp"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                                <a class="text-dark mb-2" href="shop.jsp"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                                <a class="text-dark mb-2" href="detail.jsp"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
-                                <a class="text-dark mb-2" href="cart.jsp"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
-                                <a class="text-dark mb-2" href="checkout.jsp"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
-                                <a class="text-dark" href="contact.jsp"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-5">
+                        <div class="col-md-6 mb-5">
                             <h5 class="font-weight-bold text-dark mb-4">New Subcribe</h5>
                             <form action="">
                                 <div class="form-group">

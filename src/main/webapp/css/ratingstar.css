@@ -1,0 +1,40 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+#text-primary{
+    border:none;
+    float:left;
+}
+#text-primary>input{
+    display:none;
+}
+#text-primary>label:before{
+    margin:5px;
+    font-size:1.25em;
+    font-family:FontAwesome;
+    display:inline-block;
+    content:"\f005";
+}
+
+#text-primary>.half:before{
+    content:"\f089";
+    position:absolute;
+}
+
+#text-primary>label{
+    
+    float:right;
+}
+
+#text-primary>input:checked~label,
+#text-primary:not(:checked)>label:hover,
+#text-primary:not(:checked)>label:hover~label{
+    color:#D19C97;
+}
+
+#text-primary>input:checked+label:hover,
+#text-primary>input:checked~label:hover,
+#text-primary>label:hover~input:checked~label,
+#text-primary>input:checked~label:hover~label{
+    color:#D19C97;
+}
+

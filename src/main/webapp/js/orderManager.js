@@ -8,40 +8,26 @@ var displayByStatus = document.getElementById("status");
 
 displayByPaymentMethod.addEventListener("click", () => {
     displayByPaymentMethod.addEventListener("change", () => {
-        switch (displayByPaymentMethod.value) {
-            case "paypal":
-                orderManager("paypal");
-                break;
-            case "direct":
-                orderManager("direct");
-                break;
-            case "bank":
-                orderManager("bank");
-                break;
-        }
-    })
+        orderManager(displayByPaymentMethod.value, displayByStatus.value, 0)
+    });
 });
 
 displayByStatus.addEventListener("click", () => {
     displayByStatus.addEventListener("change", () => {
-        switch (displayByStatus.value) {
-            case "displayPending":
-                orderManager("displayPending");
-                break;
-            case "displayPaid":
-                orderManager("displayPaid");
-                break;
-            case "displayComplete":
-                orderManager("displayComplete");
-                break;
-        }
-    })
+        orderManager(displayByPaymentMethod.value, displayByStatus.value, 0);
+    });
 });
 
-function orderManager(s) {
+function changePage(offset){
+    orderManager(displayByPaymentMethod.value, displayByStatus.value, (offset - 1)*10);
+}
+
+function orderManager(method, status, offset) {
     dataToSend = {
-        require: s
-    }
+        method: method,
+        status: status,
+        offset: offset
+    };
     fetch('./OrderManagerSortFilterController', {
         method: 'POST',
         headers: {
@@ -57,7 +43,9 @@ function orderManager(s) {
         if (data !== null) {
             var orderList = $("#table-body");
             orderList.empty();
-            data.forEach(function (order) {
+            var orderResult = data.orderResult;
+            var total = data.count;
+            orderResult.forEach(function (order) {
                 orderList.append("<tr>" +
                         "<td>" + order.orderId + "</td>" +
                         "<td>" + order.customerId + "</td>" +
@@ -68,16 +56,29 @@ function orderManager(s) {
                         "<td><button name='view' id='view' value='" + order.orderId + "'>View Detail</button></td>" +
                         "</tr>");
             });
+            var allPage = document.getElementById("all-pages");
+            allPage.innerHTML = `<li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <c:forEach begin="1" end="${total}" var="o">
+                        <li class="page-item">
+                            <a href="" onclick="changePage(${o})" class="page-link active">${o}</a>
+                        </li>
+                    </c:forEach>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>`;
+            
         } else {
             throw new Error("Not Found!");
         }
     }).then(error => {
-        var status = document.createElement("div");
-        status.innerText = error;
-        document.getElementById("status-error").appendChild(status);
-        window.setTimeout(function(){
-            status.remove();
-        },2000);
     });
 }
 

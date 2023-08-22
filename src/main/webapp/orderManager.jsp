@@ -32,18 +32,18 @@
         <div>
             <label style="margin: 2rem;" for="payment">Display Payment Method by</label>
             <select class="" id="payment">
-                <option style="text-align: center;" value="select">--Select--</option>
-                <option style="text-align: center;" value="paypal">Display all PayPal Payment Method</option>
-                <option style="text-align: center;" value="bank">Display all Bank Payment Method</option>
+                <option style="text-align: center;" value="all">----Display All----</option>
+                <option style="text-align: center;" value="PayPal">Display all PayPal Payment Method</option>
+                <option style="text-align: center;" value="Bank">Display all Bank Payment Method</option>
                 <option style="text-align: center;" value="direct">Display all Direct Payment Method</option>
             </select>
             <label style="margin: 2rem;" for="status">Display Status by</label>
             <select id="status">
-                <option style="text-align: center;" value="select">-----Select-----</option>
-                <option style="text-align: center;" value="displayPending">Display all pending order</option>
-                <option style="text-align: center;" value="displayPaid">Display all paid order</option>
-                <option style="text-align: center;" value="displayProcessing">Display all processing order</option>
-                <option style="text-align: center;" value="displayComplete">Display all completed order</option>
+                <option style="text-align: center;" value="all">---Display All---</option>
+                <option style="text-align: center;" value="pending">Display all pending order</option>
+                <option style="text-align: center;" value="paid">Display all paid order</option>
+                <option style="text-align: center;" value="processing">Display all processing order</option>
+                <option style="text-align: center;" value="complete">Display all completed order</option>
             </select>
         </div>
         <div id="status-error"></div>
@@ -75,6 +75,29 @@
                 </tbody>
             </table>
         </form>
+        <div class="col-12 pb-1">
+            <nav aria-label="Page navigation">
+                <ul id="all-pages" class="pagination justify-content-center mb-3">
+                    <li class="page-item disabled">
+                        <button class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </button>
+                    </li>
+                    <c:forEach begin="1" end="${totalOrders}" var="o">
+                        <li class="page-item">
+                            <button onclick="changePage(${o})" class="page-link active">${o}</button>
+                        </li>
+                    </c:forEach>
+                    <li class="page-item">
+                        <button class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
         <%@include file="footer.jsp" %>
         <script src="js/orderManager.js"></script>
     </body>

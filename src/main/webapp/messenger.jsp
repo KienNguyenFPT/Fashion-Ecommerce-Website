@@ -35,7 +35,6 @@
 
             table, th, td{
                 font-size: 1.2rem;
-                ;
             }
             th{
                 background-color: #D19C97;
@@ -48,7 +47,7 @@
             }
             th, td{
                 text-align: center;
-                padding: .5rem 3rem;
+                padding: .5rem 1rem;
             }
 
             button{

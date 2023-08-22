@@ -5,6 +5,7 @@
 package Controller;
 
 import com.google.gson.Gson;
+import dao.ChatroomDAO;
 import dto.Admin;
 import dto.Customer;
 import java.io.IOException;
@@ -44,6 +45,7 @@ public class GetChatRoomAddress extends HttpServlet {
             
         }else if (session.getAttribute("userRole").equals("admin")){
             Admin a = (Admin) session.getAttribute("user");
+            new ChatroomDAO().updateUser2IdChatroom(a, roomId);
             room.setSenderId(2);
             room.setSenderName(a.getUsername());
         }

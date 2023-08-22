@@ -15,16 +15,21 @@ body {
     gap: 1rem;
 }
 
-
 table, th, td{
-    border: 1px solid black;
     font-size: 1.2rem;
+}
+th{
+    background-color: #D19C97;
+}
+tbody > tr{
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
     border-collapse: collapse;
 }
-
 th, td{
     text-align: center;
-    padding: .2rem;
+    padding: .5rem 1rem;
 }
 
 button{

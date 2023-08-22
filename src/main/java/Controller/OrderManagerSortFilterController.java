@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.OrderResponse;
 
 /**
  *
@@ -48,17 +49,37 @@ public class OrderManagerSortFilterController extends HttpServlet {
             String readData = reader.lines().collect(Collectors.joining());
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(readData, JsonObject.class);
-            String require = jsonObject.get("require").getAsString();
-            if (require != null && require.length() > 0) {
-                List<OrderTable> orderList = new OrderTableDAO().loadOrderTableFollow(require);
+            String method = jsonObject.get("method").getAsString();
+            String status = jsonObject.get("status").getAsString();
+            int offset = jsonObject.get("offset").getAsInt();
+            long total = 0;
+            if ((method != null && method.length() > 0) || (status != null && status.length() > 0)) {
+                List<OrderTable> orderList;
+                if (method.equals("all")) {
+                    if (status.equals("all")) {
+                        orderList = new OrderTableDAO().loadOrderTable(offset);
+                        total = new OrderTableDAO().loadTotalOrder();
+                    } else {
+                        orderList = new OrderTableDAO().loadOrderByStatus(status, offset);
+                        total = new OrderTableDAO().loadTotalOrderByStatus(status);
+                    }
+                } else {
+                    if (status.equals("all")) {
+                        orderList = new OrderTableDAO().loadOrderByMethod(method, offset);
+                        total = new OrderTableDAO().loadTotalOrderByMethod(method);
+                    } else {
+                        orderList = new OrderTableDAO().loadOrderByStatusAndMethod(method, status, offset);
+                        total = new OrderTableDAO().loadTotalOrderByMethodAndStatus(method, status);
+                    }
+                }
                 List<OrderTableModel> orderResult = new ArrayList<OrderTableModel>();
-                for (OrderTable o : orderList){
+                for (OrderTable o : orderList) {
                     OrderTableModel oTemp = new OrderTableModel(o.getOrderId(), o.getOrderDate(), o.getTotalAmount(), o.getPaymentMethod(), o.getStatus(), o.getCustomerId().getCustomerId());
                     orderResult.add(oTemp);
                 }
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(gson.toJson(orderResult));
+                response.getWriter().write(gson.toJson(new OrderResponse(orderResult, total)));
             }
         } catch (Exception e) {
             throw new Error("Now, error is occurring. Please try again!");

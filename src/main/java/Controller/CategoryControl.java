@@ -1,48 +1,47 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controller;
 
-import dao.CustomerDAO;
-import dao.ShoppingCartDAO;
-import dto.Customer;
-import dto.ShoppingCart;
+import dao.DAO;
+import entity.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import java.util.*;
 
 /**
  *
- * @author Raiku
+ * @author Trung Kien
  */
-public class LoginController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+@WebServlet(name = "CategoryControl", urlPatterns = {"/category"})
+public class CategoryControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Customer c = new CustomerDAO().findCustomerByIdAndPw("customer1", "password1");
-        if (c != null){
-            session.setAttribute("userRole", "customer");
-            session.setAttribute("user", c);
-            ShoppingCart s = new ShoppingCartDAO().loadShoppingCart(c);
-            session.setAttribute("shoppingCart", s);
-        }else{
-            response.sendRedirect("404.jsp");
-        }
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        String category_id = request.getParameter("cid");
+        String index = request.getParameter("index");
+        if(index == null) index = "1";
+        int indexPage = Integer.parseInt(index);
+        
+        
+        DAO dao = new DAO();
+        List<Product> list = dao.getProductByCateID(category_id);
+        List<Category> listC = dao.getAllCategory();
+        List<Product> listPagingByCateID = dao.getPagingByCateID(category_id, indexPage);
+        
+        int cnt = dao.getTotalByCateID(category_id);
+        int numPage = cnt / 6;
+        if(cnt%6 !=0) numPage++;
+        
+        request.setAttribute("context", "category");
+        request.setAttribute("tag", indexPage);
+        //request.setAttribute("indexPage", indexPage);
+        request.setAttribute("endPage", numPage);
+        request.setAttribute("listP", listPagingByCateID);
+        request.setAttribute("listC", listC);
+        request.getRequestDispatcher("shop.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

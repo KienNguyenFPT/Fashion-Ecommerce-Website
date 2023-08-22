@@ -4,22 +4,14 @@
  */
 package Controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import dao.OrderTableDAO;
 import dto.OrderTable;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,9 +30,15 @@ public class OrderManagerController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<OrderTable> orderList = new OrderTableDAO().loadOrderTable();
-        request.getSession().setAttribute("orderList", orderList);
-        response.sendRedirect("orderManager.jsp");
+        if (request.getSession().getAttribute("userRole") == null || request.getSession().getAttribute("userRole").equals("customer")) {
+            response.sendRedirect("404.jsp");
+        } else {
+            List<OrderTable> orderList = new OrderTableDAO().loadOrderTable(0);
+            long total = new OrderTableDAO().loadTotalOrder()/10 + 1;
+            request.getSession().setAttribute("orderList", orderList);
+            request.getSession().setAttribute("totalOrders", total);
+            request.getRequestDispatcher("orderManager.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
