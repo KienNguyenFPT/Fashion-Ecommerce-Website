@@ -36,6 +36,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     chatArea.innerHTML += `<p>Connect to room: ${roomId}</p>`;
                     chatArea.scrollTop = chatArea.scrollHeight;
                 };
+                ws.onmessage = event => {
+                    var mess = JSON.parse(event.data);
+                    var message = document.createElement("div");
+                    message.innerHTML = `<div style="display: flex; margin: 10px 0;">
+                                    <span style="font-weight: bold; margin-right: 5px;">${mess.senderName}:</span>
+                                    <div style="background-color: #f0f0f0; padding: 5px; border-radius: 5px;">${mess.content}</div>
+                                </div>`;
+                    chatArea.appendChild(message);
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                };
+                ws.onclose = () => {
+                    var message = document.createElement("div");
+                    message.innerHTML = `<p>Connection closed</p>`;
+                    chatArea.appendChild(message);
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                };
             }
         }).then(error => {
             var status = document.createElement("div");
@@ -52,22 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 sendMessage.addEventListener("click", () => {
     inputMessage.addEventListener("change", () => {
-        ws.onmessage = event => {
-            var mess = JSON.parse(event.data);
-            var message = document.createElement("div");
-            message.innerHTML = `<div style="display: flex; margin: 10px 0;">
-                                    <span style="font-weight: bold; margin-right: 5px;">${mess.senderName}:</span>
-                                    <div style="background-color: #f0f0f0; padding: 5px; border-radius: 5px;">${mess.content}</div>
-                                </div>`;
-            chatArea.appendChild(message);
-            chatArea.scrollTop = chatArea.scrollHeight;
-        };
-        ws.onclose = () => {
-            var message = document.createElement("div");
-            message.innerHTML = `<p>Connection closed</p>`;
-            chatArea.appendChild(message);
-            chatArea.scrollTop = chatArea.scrollHeight;
-        };
         
         var message = inputMessage.value.trim();
         dataToSend = {
@@ -79,12 +79,12 @@ sendMessage.addEventListener("click", () => {
             updateMessage(dataToSend);
             ws.send(JSON.stringify(dataToSend));
             inputMessage.value = "";
-            
+
         }
     });
 });
 
-function updateMessage(dataToSend){
+function updateMessage(dataToSend) {
     fetch('./UpdateMessageController', {
         method: 'POST',
         headers: {
@@ -101,8 +101,8 @@ function updateMessage(dataToSend){
         var status = document.createElement("div");
         status.innerText = error;
         document.getElementById("status").appendChild(status);
-        window.setTimeout(function(){
-          status.remove();  
+        window.setTimeout(function () {
+            status.remove();
         }, 5000);
     });
 }

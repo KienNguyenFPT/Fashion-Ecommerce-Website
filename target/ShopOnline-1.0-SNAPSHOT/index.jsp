@@ -157,27 +157,23 @@
                                 <a href="./MessengerManagerController" class="nav-item nav-link">Messenger</a>
                             </div>
 
-                            <c:if test="${sessionScope.acc == null}">
+                            <c:if test="${sessionScope.user == null}">
                                 <div class="navbar-nav ml-auto py-0">
                                     <a href="./loginCustomer.jsp" class="nav-item nav-link">Login</a>
                                     <a href="Register.jsp" class="nav-item nav-link">Register</a>
                                 </div>
                             </c:if>
 
-                            <c:if test="${sessionScope.acc != null}">
-                                <a href="#" class="nav-link dropdown-toggle" >Hello ${sessionScope.acc.username}</a>
-
-<!--<a href="" class="nav-item nav-link">Hello ${sessionScope.acc.username}</a> -->
-                                <a href="logout" class="nav-item nav-link">Logout</a> 
-
+                            <c:if test="${sessionScope.user != null}">
+                                <c:if test="${sessionScope.userRole == 'customer'}">
+                                    <a href="#" class="nav-link dropdown-toggle" >Hello ${sessionScope.user.getCustomerName()}</a>
+                                    <a href="logout" class="nav-item nav-link">Logout</a> 
+                                </c:if>
+                                <c:if test="${sessionScope.userRole != 'customer'}">
+                                    <a href="#" class="nav-link dropdown-toggle" >Hello ${sessionScope.user.getUsername()}</a>
+                                    <a href="logout" class="nav-item nav-link">Logout</a> 
+                                </c:if>
                             </c:if> 
-
-
-
-
-
-
-
                         </div>
                     </nav>
                     <div id="header-carousel" class="carousel slide" data-ride="carousel">

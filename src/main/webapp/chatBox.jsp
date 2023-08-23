@@ -72,6 +72,6 @@
         </div>
         <div id="status"></div>
         <%@include file="footer.jsp" %>
-        <<script src="js/chatBox.js"></script>
+        <<script src="js/chatBox.js" defer></script>
     </body>
 </html>
