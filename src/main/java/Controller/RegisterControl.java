@@ -23,8 +23,11 @@ public class RegisterControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String user = request.getParameter("name");
         String pass = request.getParameter("password");
-        String gmail = request.getParameter("email");
         String repass = request.getParameter("re_password");
+        String cusname = request.getParameter("first_name") + request.getParameter("last_name");
+        String gmail = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String adr = request.getParameter("address");
         
         DAO dao = new DAO();
         if(!repass.equals(pass)) {
@@ -42,8 +45,8 @@ public class RegisterControl extends HttpServlet {
                 request.getRequestDispatcher("Register.jsp").forward(request, response);
             }           
             else {
-                dao.signup(user, pass, gmail);
-                dao.sendEmail(gmail, user);
+                dao.signup(user, pass, gmail, cusname, phone, adr);
+//                dao.sendEmail(gmail, user);
                 request.setAttribute("message", "Register SUCCESSFULLY!");
                 
                 request.getRequestDispatcher("Register.jsp").forward(request, response);

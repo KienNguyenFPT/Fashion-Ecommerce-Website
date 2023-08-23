@@ -42,6 +42,9 @@
                             <div class="form-group">
                                 <button type="submit" class="form-submit">Log in</button>
                             </div>
+                            <p class="text-danger" style="font-size: 26px;">
+                                ${message}
+                            </p>
                         </form>
 
                     </div>

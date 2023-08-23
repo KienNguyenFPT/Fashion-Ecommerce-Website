@@ -12,6 +12,7 @@ model\OrderResponse.class
 javax\mail1.class
 Controller\LoginCustomerController.class
 dao\MyConnection.class
+Controller\AddNewProductController.class
 Controller\DiscountController.class
 model\Chatroom.class
 Controller\MessengerWebSocketController.class
@@ -37,6 +38,8 @@ Controller\FilterByPriceController.class
 Controller\LoginControl.class
 dao\AdminDAO.class
 dto\OrderTable.class
+dao\SellerDAO.class
+Controller\ProductManagerController.class
 dao\DiscountDAO.class
 dto\Chatroom.class
 entity\Category.class
@@ -60,3 +63,4 @@ entity\Product.class
 Controller\CategoryControl.class
 Controller\OrderManagerSortFilterController.class
 Controller\LoginAdminController.class
+Controller\LoginSellerController.class

@@ -39,11 +39,12 @@ public class LoginAdminController extends HttpServlet {
         Admin c = new AdminDAO().findAdminByIdAndPw(user, pass);
         if (c != null){
             session.setAttribute("userRole", "admin");
-            session.setAttribute("user", c);
+            session.setAttribute("user", c); 
+            request.getRequestDispatcher("home").forward(request, response);
         }else{
-            response.sendRedirect("404.jsp");
+            request.setAttribute("message", "Invalid username or pass!");
+            request.getRequestDispatcher("loginAdmin.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("./home").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -77,7 +77,7 @@
             }).render('#paypal-button-container');
             //This function displays Smart Payment Buttons on your web page.
         </script>
-        <<script src="js/payment.js"></script>
+        <script src="js/payment.js"></script>
         <%@include file="footer.jsp" %>
     </body>
 </html>

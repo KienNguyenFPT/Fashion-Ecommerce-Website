@@ -30,19 +30,22 @@
 
                 <div class="container">
                     <div class="signup-content">
-                            
+
                         <form action="LoginController" class="signin-form">
                             <h2 class="form-title">Login Customer</h2>
-                                <div class="form-group">
-                                    <input name ="user" type="text" class="form-input" placeholder="Username" required>
-                                </div>
-                                <div class="form-group">
-                                    <input name="pass" id="password-field" type="password" class="form-input" placeholder="Password" required>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="form-submit">Log in</button>
-                                </div>
-                            </form>
+                            <div class="form-group">
+                                <input name ="user" type="text" class="form-input" placeholder="Username" required>
+                            </div>
+                            <div class="form-group">
+                                <input name="pass" id="password-field" type="password" class="form-input" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="form-submit">Log in</button>
+                            </div>
+                            <p class="text-danger" style="font-size: 26px;">
+                                ${message}
+                            </p>
+                        </form>
                     </div>
                 </div>
             </section>

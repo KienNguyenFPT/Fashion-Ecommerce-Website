@@ -14,6 +14,16 @@
         .loginhere {
         margin-top: 5px; 
     }
+    
+    .row {
+      display: flex;
+      justify-content: space-between;
+    }
+  
+    .col-md-6 {
+      flex: 1;
+      margin-right: 5px;
+    }
     </style>
 </head>
 
@@ -27,23 +37,44 @@
                     <form action="register" method="POST" id="signup-form" class="signup-form">
                         <h2 class="form-title">Create account</h2>
                         
-                        <p class="text-danger" style="font-size: 23px;">
+                        <p class="text-danger" style="font-size: 20px;">
                         ${message}
                         </p>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+                            <input type="text" class="form-input" name="name" id="name" placeholder="Your UserName"/>
                         </div>
+                        
                         <div class="form-group">
-                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-input" name="password" id="password" placeholder="Password"/>
-                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                            <input type="password" class="form-input" name="password" id="password" placeholder="Password" required/>
+                            <span class="zmdi zmdi-eye field-icon toggle-password"></span>
                             <i class="bi bi-eye-slash" id="togglePassword"></i>
                         </div>
                         
                         <div class="form-group">
-                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
+                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password" required/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-input" name="first_name" id="first_name" placeholder="Your First Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-input" name="last_name" id="last_name" placeholder="Your Last Name" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="phone" id="phone" placeholder="Your phone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="address" id="address" placeholder="Your address" required>
                         </div>
                         
                         <div class="form-group">

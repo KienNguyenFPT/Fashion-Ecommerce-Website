@@ -76,6 +76,18 @@
         <servlet-name>FilterByPriceController</servlet-name>
         <servlet-class>Controller.FilterByPriceController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginSellerController</servlet-name>
+        <servlet-class>Controller.LoginSellerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewProductController</servlet-name>
+        <servlet-class>Controller.AddNewProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductManagerController</servlet-name>
+        <servlet-class>Controller.ProductManagerController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddToCartController</servlet-name>
         <url-pattern>/AddToCartController</url-pattern>
@@ -151,6 +163,18 @@
     <servlet-mapping>
         <servlet-name>FilterByPriceController</servlet-name>
         <url-pattern>/FilterByPriceController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginSellerController</servlet-name>
+        <url-pattern>/LoginSellerController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewProductController</servlet-name>
+        <url-pattern>/AddNewProductController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductManagerController</servlet-name>
+        <url-pattern>/ProductManagerController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

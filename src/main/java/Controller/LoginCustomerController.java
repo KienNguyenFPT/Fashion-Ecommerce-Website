@@ -44,10 +44,11 @@ public class LoginCustomerController extends HttpServlet {
             session.setAttribute("user", c);
             ShoppingCart s = new ShoppingCartDAO().loadShoppingCart(c);
             session.setAttribute("shoppingCart", s);
+            request.getRequestDispatcher("home").forward(request, response);
         }else{
-            response.sendRedirect("404.jsp");
+            request.setAttribute("message", "Invalid username or pass!");
+            request.getRequestDispatcher("loginCustomer.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("./home").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

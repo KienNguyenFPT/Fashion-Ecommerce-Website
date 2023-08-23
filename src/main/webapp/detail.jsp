@@ -173,6 +173,7 @@
                                     </div>
                                 </div>
                                 <a href="contact.jsp" class="nav-item nav-link">Contact</a>
+                                <a href="./addProduct.jsp" class="nav-item nav-link">Product Manager</a>
                                 <a href="./OrderManagerController" class="nav-item nav-link">Order Manager</a>
                                 <a href="./MessengerManagerController" class="nav-item nav-link">Messenger</a>
                             </div>

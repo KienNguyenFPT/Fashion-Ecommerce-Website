@@ -283,14 +283,17 @@ public class DAO {
         return null;
     }
     
-    public Account signup(String user, String pass, String gmail) {
-        String query = "insert into login(username, password, gmail) value(?,?,?)";
+    public Account signup(String user, String pass, String gmail, String cusname, String phone, String adr) {
+        String query = "insert into customer(username, password, customer_name, email, phone, address) value(?,?,?,?,?,?)";
         try {
             conn = new ConnectDB().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, user);
             ps.setString(2, pass);
-            ps.setString(3, gmail);
+            ps.setString(3, cusname);
+            ps.setString(4, gmail);
+            ps.setString(5, phone);
+            ps.setString(6, adr);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -298,7 +301,7 @@ public class DAO {
     }
     
     public Account checkExistUser(String username) {
-        String query = "select * from login where username = ?";
+        String query = "select * from customer where username = ?";
         try {
             conn = new ConnectDB().getConnection();
             ps = conn.prepareStatement(query);
@@ -313,7 +316,7 @@ public class DAO {
     }
     
     public Account checkExistGmail(String gmail) {
-        String query = "select * from login where gmail = ?";
+        String query = "select * from customer where email = ?";
         try {
             conn = new ConnectDB().getConnection();
             ps = conn.prepareStatement(query);

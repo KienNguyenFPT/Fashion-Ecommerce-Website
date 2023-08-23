@@ -3,6 +3,7 @@ C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\mode
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Controller\MessengerManagerController.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\dao\ShoppingCartDAO.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Controller\MessengerWebSocketController.java
+C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Controller\ProductManagerController.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Controller\HomeControl.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Controller\OrderManagerController.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\dto\Category.java
@@ -29,6 +30,8 @@ C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Cont
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\dto\Customer.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\model\OrderTableModel.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\entity\Product.java
+C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Controller\LoginSellerController.java
+C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Controller\FilterByPriceController.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\dto\OrderTable.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\dto\Seller.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\dao\MessageDAO.java
@@ -41,6 +44,8 @@ C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\conn
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\entity\Account.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Controller\LogoutControl.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\dao\CustomerDAO.java
+C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\dao\SellerDAO.java
+C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Controller\AddNewProductController.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Controller\DiscountController.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\Controller\LoginAdminController.java
 C:\Users\Raiku\OneDrive\Documents\NetBeansProjects\ShopOnline\src\main\java\dto\OrderItem.java

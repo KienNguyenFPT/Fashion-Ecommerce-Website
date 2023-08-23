@@ -88,8 +88,8 @@
 
                     </form>
                 </div>
-                <a href="./loginAdmin.jsp" class="nav-item nav-link">Login Admin</a>
-                <a href="./loginCustomer.jsp" class="nav-item nav-link">Login Customer</a>
+                <a href="./loginAdmin.jsp" class="nav-item nav-link">Admin</a>
+                <a href="./loginSeller.jsp" class="nav-item nav-link">Seller</a>
                 <div class="col-lg-1 col-2 text-right">
                     <a href="./cart.jsp" class="btn border">
                         <i class="fas fa-shopping-cart text-primary"></i>
@@ -152,13 +152,14 @@
                                     </div>
                                 </div>
                                 <a href="contact.jsp" class="nav-item nav-link">Contact</a>
+                                <a href="./ProductManagerController" class="nav-item nav-link">Product Manager</a>
                                 <a href="./OrderManagerController" class="nav-item nav-link">Order Manager</a>
                                 <a href="./MessengerManagerController" class="nav-item nav-link">Messenger</a>
                             </div>
 
                             <c:if test="${sessionScope.acc == null}">
                                 <div class="navbar-nav ml-auto py-0">
-                                    <a href="Login.jsp" class="nav-item nav-link">Login</a>
+                                    <a href="./loginCustomer.jsp" class="nav-item nav-link">Login</a>
                                     <a href="Register.jsp" class="nav-item nav-link">Register</a>
                                 </div>
                             </c:if>
