@@ -111,7 +111,7 @@
                                                             <img src="${item.getProductId().getImg()}" alt width="35" class="img-fluid">
                                                         </div>
                                                         <div class="item-name flex-lg-grow-1 ms-3">
-                                                            <h6 class="small mb-0"><a href="#" class="text-reset">${item.getProductId().getName()}</a></h6>
+                                                            <h6 class="small mb-0"><a href="detail?pid=${item.getProductId().getProductId()}" class="text-reset">${item.getProductId().getName()}</a></h6>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -174,22 +174,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="mb-3 d-flex justify-content-between">
-                                    <label for="updateStatus">Update Status</label>
-                                    <select id="updateStatus">
-                                        <option value="first">---Select---</option>
-                                        <option value="paid">paid</option>
-                                        <option value="processing">processing</option>
-                                        <option value="complete">completed</option>
-                                    </select>
+                    <c:if test="${sessionScope.userRole == 'admin' || sessionScope.userRole == 'seller'}">
+                        <div class="col-lg-4">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="mb-3 d-flex justify-content-between">
+                                        <label for="updateStatus">Update Status</label>
+                                        <select id="updateStatus">
+                                            <option value="first">---Select---</option>
+                                            <option value="paid">paid</option>
+                                            <option value="processing">processing</option>
+                                            <option value="complete">completed</option>
+                                        </select>
+                                    </div>
+                                    <div id="status-message"></div>
                                 </div>
-                                <div id="status-message"></div>
                             </div>
                         </div>
-                    </div>
+                    </c:if>
                 </div>
             </div>
         </div>

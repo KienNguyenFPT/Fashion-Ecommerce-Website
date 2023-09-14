@@ -152,10 +152,18 @@
                                         <a href="checkout.jsp" class="dropdown-item">Checkout</a>
                                     </div>
                                 </div>
-                                <a href="contact.jsp" class="nav-item nav-link">Contact</a>
-                                <a href="./ProductManagerController" class="nav-item nav-link">Product Manager</a>
-                                <a href="./OrderManagerController" class="nav-item nav-link">Order Manager</a>
-                                <a href="./MessengerManagerController" class="nav-item nav-link">Messenger</a>
+                                <c:if test="${sessionScope.user != null}">
+                                    <c:if test="${sessionScope.userRole == 'admin'}">
+                                        <a href="./OrderManagerController" class="nav-item nav-link">Order Manager</a>
+                                    </c:if>
+                                    <c:if test="${sessionScope.userRole == 'seller'}">
+                                        <a href="./ProductManagerController" class="nav-item nav-link">Product Manager</a>
+                                        <a href="./OrderManagerController" class="nav-item nav-link">Order Manager</a>
+                                    </c:if>
+                                    <c:if test="${sessionScope.userRole != 'seller'}">
+                                        <a href="./MessengerManagerController" class="nav-item nav-link">Messenger</a>
+                                    </c:if>  
+                                </c:if> 
                             </div>
                             <c:if test="${sessionScope.user == null}">
                                 <div class="navbar-nav ml-auto py-0">

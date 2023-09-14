@@ -79,7 +79,7 @@ public class OrderManagerSortFilterController extends HttpServlet {
                 }
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(gson.toJson(new OrderResponse(orderResult, total)));
+                response.getWriter().write(gson.toJson(new OrderResponse(orderResult, (long) Math.ceil((double)total/10))));
             }
         } catch (Exception e) {
             throw new Error("Now, error is occurring. Please try again!");

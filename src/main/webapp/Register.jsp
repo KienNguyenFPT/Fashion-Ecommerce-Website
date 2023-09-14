@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +42,9 @@
                         <p class="text-danger" style="font-size: 20px;">
                         ${message}
                         </p>
+                        <c:if test="${message == 'Register SUCCESSFULLY!'}">
+                            <a style="color: red;" href="loginCustomer.jsp">Login here!</a>
+                        </c:if>
                         <div class="form-group">
                             <input type="text" class="form-input" name="name" id="name" placeholder="Your UserName"/>
                         </div>

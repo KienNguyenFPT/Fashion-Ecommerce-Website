@@ -9,7 +9,6 @@ Controller\OrderBankTranferController.class
 Controller\UpdateMessageController.class
 dao\ShoppingCartDAO.class
 model\OrderResponse.class
-javax\mail1.class
 Controller\LoginCustomerController.class
 dao\MyConnection.class
 Controller\AddNewProductController.class

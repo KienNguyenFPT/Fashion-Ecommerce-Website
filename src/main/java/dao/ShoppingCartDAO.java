@@ -91,7 +91,6 @@ public class ShoppingCartDAO extends MyConnection {
 
     public ShoppingCart createShoppingCart(ShoppingCart shoppingCart) {
         try {
-            getEntityManager();
             entityManager.getTransaction().begin();
             entityManager.persist(shoppingCart);
             entityManager.flush();
@@ -100,10 +99,8 @@ public class ShoppingCartDAO extends MyConnection {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
-        } finally {
-            closeConnect();
+            throw new Error(e.getMessage());
         }
-        return null;
     }
 
     public ShoppingCart loadShoppingCart(Customer cusId) {

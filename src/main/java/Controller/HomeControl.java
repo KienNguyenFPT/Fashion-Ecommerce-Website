@@ -21,8 +21,8 @@ public class HomeControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String category_id = request.getParameter("cid");
-        
-        DAO dao = new DAO();
+        try{
+            DAO dao = new DAO();
         List<Product> list = dao.getProductByCateID(category_id);
         List<Category> listC = dao.getAllCategory();
         List<Product> listRand = dao.getRandomProduct();
@@ -33,6 +33,10 @@ public class HomeControl extends HttpServlet {
         request.setAttribute("listP", list);
         request.setAttribute("listC", listC);
         request.getRequestDispatcher("index.jsp").forward(request, response);
+        }catch(Exception e){
+            response.sendRedirect("404.jsp");
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

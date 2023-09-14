@@ -44,6 +44,7 @@
             var linkQr = document.getElementById("bankTransfer");
             linkQr.src = "<%=request.getSession().getAttribute("linkQr")%>";
         </script>
+        <a href="'./orderDetails.jsp'">Order Success! View Order!</a>
         <%@include file="footer.jsp" %>
     </body>
 </html>

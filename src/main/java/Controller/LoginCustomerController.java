@@ -39,18 +39,22 @@ public class LoginCustomerController extends HttpServlet {
         String pass = request.getParameter("pass");
         
         Customer c = new CustomerDAO().findCustomerByIdAndPw(user, pass);
-        if (c != null){
-            session.setAttribute("userRole", "customer");
-            session.setAttribute("user", c);
-            ShoppingCart s = new ShoppingCartDAO().loadShoppingCart(c);
-            session.setAttribute("shoppingCart", s);
-            request.getRequestDispatcher("home").forward(request, response);
-        }else{
-            request.setAttribute("message", "Invalid username or pass!");
+        try {
+            if (c != null) {
+                session.setAttribute("userRole", "customer");
+                session.setAttribute("user", c);
+                ShoppingCart s = new ShoppingCartDAO().loadShoppingCart(c);
+                session.setAttribute("shoppingCart", s);
+                request.getRequestDispatcher("home").forward(request, response);
+            } else {
+                request.setAttribute("message", "Invalid username or pass!");
+                request.getRequestDispatcher("loginCustomer.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
             request.getRequestDispatcher("loginCustomer.jsp").forward(request, response);
         }
+        
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

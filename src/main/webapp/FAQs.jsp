@@ -9,7 +9,7 @@
         <link href="css/FAQstyle.css" rel="stylesheet">
     </head>
     <body>
-
+        <%@include file="header.jsp" %>
         <h2>Accordion</h2>
 
         <button class="accordion">What if an item is unavailable?</button>
@@ -43,6 +43,7 @@
         <h3>
             <a href="index.jsp" ><b>Back to shop</b></a>
         </h3>        
+        <%@include file="footer.jsp" %>
         <script src="js/FAQs.js"></script>
     </body>
 </html>

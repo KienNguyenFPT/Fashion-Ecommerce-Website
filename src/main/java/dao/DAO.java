@@ -158,6 +158,7 @@ public class DAO {
                         rs.getInt(7)));
             }
         } catch (Exception e) {
+            throw new Error(e.getMessage());
         }
         return list;
     }

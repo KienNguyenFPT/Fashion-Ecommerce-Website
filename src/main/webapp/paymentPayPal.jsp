@@ -42,6 +42,7 @@
         <script src="https://www.paypal.com/sdk/js?client-id=Ab98Q28k3JktqKyFi21rzdra3u8ZHAxZl-uD7rChJaKWMArvSHp1PUwCjw7t8Ugwy4--KK3Xz9LOI9qM&currency=USD"></script>
         <!-- Set up a container element for the button -->
         <div id="paypal-button-container"></div>
+        <a href="'./orderDetails.jsp'">Order Success! View Order!</a>
         <script>
             paypal.Buttons({
                 createOrder: function (data, actions) {

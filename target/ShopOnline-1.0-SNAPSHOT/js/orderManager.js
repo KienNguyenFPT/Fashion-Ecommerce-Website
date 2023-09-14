@@ -18,8 +18,8 @@ displayByStatus.addEventListener("click", () => {
     });
 });
 
-function changePage(offset){
-    orderManager(displayByPaymentMethod.value, displayByStatus.value, (offset - 1)*10);
+function changePage(offset) {
+    orderManager(displayByPaymentMethod.value, displayByStatus.value, (offset - 1) * 10);
 }
 
 function orderManager(method, status, offset) {
@@ -57,24 +57,28 @@ function orderManager(method, status, offset) {
                         "</tr>");
             });
             var allPage = document.getElementById("all-pages");
-            allPage.innerHTML = `<li class="page-item disabled">
+            var paginationHTML = `<li class="page-item disabled">
                         <a class="page-link" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">Previous</span>
                         </a>
-                    </li>
-                    <c:forEach begin="1" end="${total}" var="o">
-                        <li class="page-item">
-                            <a href="" onclick="changePage(${o})" class="page-link active">${o}</a>
-                        </li>
-                    </c:forEach>
-                    <li class="page-item">
+                    </li>`;
+
+            for (var p = 1; p <= totalValue; p++) {
+                paginationHTML += `<li class="page-item">
+                        <a href="#" onclick="changePage(${p})" class="page-link active">${p}</a>
+                    </li>`;
+            }
+
+            paginationHTML += `<li class="page-item">
                         <a class="page-link" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
                         </a>
                     </li>`;
-            
+
+            allPage.innerHTML = paginationHTML;
+
         } else {
             throw new Error("Not Found!");
         }

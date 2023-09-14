@@ -172,10 +172,18 @@
                                         <a href="checkout.jsp" class="dropdown-item">Checkout</a>
                                     </div>
                                 </div>
-                                <a href="contact.jsp" class="nav-item nav-link">Contact</a>
-                                <a href="./addProduct.jsp" class="nav-item nav-link">Product Manager</a>
-                                <a href="./OrderManagerController" class="nav-item nav-link">Order Manager</a>
-                                <a href="./MessengerManagerController" class="nav-item nav-link">Messenger</a>
+                                <c:if test="${sessionScope.user != null}">
+                                    <c:if test="${sessionScope.userRole == 'admin'}">
+                                        <a href="./OrderManagerController" class="nav-item nav-link">Order Manager</a>
+                                    </c:if>
+                                    <c:if test="${sessionScope.userRole == 'seller'}">
+                                        <a href="./ProductManagerController" class="nav-item nav-link">Product Manager</a>
+                                        <a href="./OrderManagerController" class="nav-item nav-link">Order Manager</a>
+                                    </c:if>
+                                    <c:if test="${sessionScope.userRole != 'seller'}">
+                                        <a href="./MessengerManagerController" class="nav-item nav-link">Messenger</a>
+                                    </c:if>  
+                                </c:if> 
                             </div>
                             <c:if test="${sessionScope.user == null}">
                                 <div class="navbar-nav ml-auto py-0">
@@ -262,19 +270,6 @@
                     <p class="mb-4">Please scroll down to see more descriptions, and click "Add to cart" to order.</p>
 
                     <div class="d-flex align-items-center mb-4 pt-2">
-                        <div class="input-group quantity mr-3" style="width: 130px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-minus" >
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <input type="text" class="form-control bg-secondary text-center" value="1">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
                         <button id="addToCart" onclick="addToCart(${detail.product_id})" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</button>
                     </div>
                     <div class="d-flex pt-2">
@@ -445,11 +440,10 @@
                             </div>
 
                         </c:forEach>
-                        <div  id="addCartStatus" class="col-12 text-center" style="color: red;"> </div>
                     </div>
                 </div>
-            </div>
             <div  id="addCartStatus" class="col-12 text-center" style="color: red;"> </div>
+            </div>
         </div>
         <!-- Products End -->
 
